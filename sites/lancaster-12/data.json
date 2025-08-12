@@ -1,305 +1,291 @@
 {
-  "slug": "lancaster-12",
-  "brand": {
-    "title": "Lancaster 12 Lots",
-    "tagline": "Premium Development Properties - Ready for Your Vision",
-    "theme": {
-      "primary": "#1a365d",
-      "accent": "#2563eb",
-      "success": "#10b981"
+  "siteName": "Lancaster 12",
+  "plans": [
+    {
+      "id": "plan-1",
+      "name": "Plan 1",
+      "title": "Plan 1 - Single Story",
+      "description": "4 bd \u2022 3 ba \u2022 2,168 sqft",
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "sqft": 2168,
+      "features": [],
+      "file": "1CD8_dbyKPeTrv93da8RPFcEGqzYZfx66",
+      "fileName": "LANCASTER PLAN 1 PLANS.pdf",
+      "photos": []
+    },
+    {
+      "id": "plan-2",
+      "name": "Plan 2",
+      "title": "Plan 2 - 2 Story",
+      "description": "4 bd \u2022 3 ba \u2022 2,446 sqft",
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "sqft": 2446,
+      "features": [],
+      "file": "1eldVjiM4FYFxr3mW7E3M4VXywUGHI6ne",
+      "fileName": "LANCASTER PLAN 2 PLANS.pdf",
+      "photos": []
+    },
+    {
+      "id": "plan-3",
+      "name": "Plan 3",
+      "title": "Plan 3 - 2 Story",
+      "description": "5 bd \u2022 3 ba \u2022 2,693 sqft",
+      "bedrooms": 5,
+      "bathrooms": 3,
+      "sqft": 2693,
+      "features": [],
+      "file": "1tIGTT8txa4D9l1ADbcpe8LwBShLyyUHy",
+      "fileName": "LANCASTER PLAN 3 PLANS.pdf",
+      "photos": []
+    },
+    {
+      "id": "plan-4",
+      "name": "Plan 4",
+      "title": "Plan 4 - Single Story",
+      "description": "4 bd \u2022 3 ba \u2022 2,542 sqft",
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "sqft": 2542,
+      "features": [],
+      "file": "19Qdbb8TE6yofrz8tHHJ2c6X3wFncQO5Q",
+      "fileName": "LANCASTER PLAN 4 PLANS.pdf",
+      "photos": []
     }
-  },
-  "contact": {
-    "companyName": "Huntington Beach Capital Partners, Inc.",
-    "phoneDisplay": "714-713-8618",
-    "phoneE164": "+17147138618",
-    "email": "rickreza@yahoo.com",
-    "folderId": "1iXsOCeIYZAK3DGknFOYZENNATpyavLW-"
-  },
-  "location": {
-    "city": "Lancaster",
-    "state": "CA",
-    "zip": "93534",
-    "lat": 34.6868,
-    "lng": -118.1542
-  },
-  "drive": {
-    "publicFolderId": "1_cSGSHD-JK0HnrydV_PPzKuSoIrMDEk5",
-    "folderId": "1iXsOCeIYZAK3DGknFOYZENNATpyavLW-"
-  },
-  "viewer": "drive",
-  "heroBullets": [
-    "Fully Graded",
-    "Entitlements Complete",
-    "Development Ready"
   ],
-  "presentation": {
-    "title": "Complete Presentation",
-    "description": "Full project overview and investment opportunity",
-    "file": "1892V0NrT0R10Hh6OcIY7LqNc3uCQWHJs",
-    "icon": "\ud83d\udcca",
-    "name": "AA 1 LANCASTER 12 PRESENTATION.pdf"
-  },
   "lots": [
     {
       "id": "lot-1",
       "number": "Lot 1",
-      "size": "7,500 sq ft",
-      "features": [
-        "Corner lot",
-        "Utilities ready",
-        "Fully graded"
-      ],
+      "title": "Lot 1",
+      "size": "TBD",
+      "features": [],
       "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "name": "LANCASTER 12 LOT PLATMAP.pdf",
       "page": null,
       "photos": [],
-      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+      "completeness": 0,
+      "description": "0% complete",
+      "docRefs": {
+        "platmap": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu"
+      }
     },
     {
       "id": "lot-2",
       "number": "Lot 2",
-      "size": "8,200 sq ft",
+      "title": "Lot 2",
+      "size": "~0.25 acres",
       "features": [
-        "Cul-de-sac location",
-        "Premium position",
-        "Fully graded"
+        "APN 3203-063-002",
+        "Owned"
       ],
       "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "name": "LANCASTER 12 LOT PLATMAP.pdf",
       "page": null,
       "photos": [],
-      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+      "status": "Owned",
+      "apn": "3203-063-002",
+      "address": "43741 Verella Ct",
+      "docRefs": {
+        "platmap": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+        "title_report": "1KgJr4lTNedGsxkpFVONGl31Qok-VU55B"
+      },
+      "completeness": 33,
+      "description": "APN 3203-063-002 \u2022 ~0.25 acres \u2022 Owned \u2022 33% complete"
     },
     {
       "id": "lot-3",
       "number": "Lot 3",
-      "size": "7,800 sq ft",
-      "features": [
-        "Street frontage",
-        "Level terrain",
-        "Fully graded"
-      ],
+      "title": "Lot 3",
+      "size": "TBD",
+      "features": [],
       "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "name": "LANCASTER 12 LOT PLATMAP.pdf",
       "page": null,
       "photos": [],
-      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+      "completeness": 0,
+      "description": "0% complete",
+      "docRefs": {
+        "platmap": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu"
+      }
     },
     {
       "id": "lot-4",
       "number": "Lot 4",
-      "size": "8,500 sq ft",
-      "features": [
-        "Large lot",
-        "Privacy",
-        "Fully graded"
-      ],
+      "title": "Lot 4",
+      "size": "TBD",
+      "features": [],
       "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "name": "LANCASTER 12 LOT PLATMAP.pdf",
       "page": null,
       "photos": [],
-      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+      "completeness": 0,
+      "description": "0% complete",
+      "docRefs": {
+        "platmap": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu"
+      }
     },
     {
       "id": "lot-5",
       "number": "Lot 5",
-      "size": "7,600 sq ft",
-      "features": [
-        "Central location",
-        "Easy access",
-        "Fully graded"
-      ],
+      "title": "Lot 5",
+      "size": "TBD",
+      "features": [],
       "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "name": "LANCASTER 12 LOT PLATMAP.pdf",
       "page": null,
       "photos": [],
-      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+      "completeness": 0,
+      "description": "0% complete",
+      "docRefs": {
+        "platmap": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu"
+      }
     },
     {
       "id": "lot-6",
       "number": "Lot 6",
-      "size": "7,900 sq ft",
-      "features": [
-        "Quiet street",
-        "Mountain views",
-        "Fully graded"
-      ],
+      "title": "Lot 6",
+      "size": "TBD",
+      "features": [],
       "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "name": "LANCASTER 12 LOT PLATMAP.pdf",
       "page": null,
       "photos": [],
-      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+      "completeness": 0,
+      "description": "0% complete",
+      "docRefs": {
+        "platmap": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu"
+      }
     },
     {
       "id": "lot-7",
       "number": "Lot 7",
-      "size": "8,100 sq ft",
-      "features": [
-        "Premium corner",
-        "Dual access",
-        "Fully graded"
-      ],
+      "title": "Lot 7",
+      "size": "TBD",
+      "features": [],
       "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "name": "LANCASTER 12 LOT PLATMAP.pdf",
       "page": null,
       "photos": [],
-      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+      "completeness": 0,
+      "description": "0% complete",
+      "docRefs": {
+        "platmap": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu"
+      }
     },
     {
       "id": "lot-8",
       "number": "Lot 8",
-      "size": "7,700 sq ft",
-      "features": [
-        "Standard lot",
-        "Ready to build",
-        "Fully graded"
-      ],
+      "title": "Lot 8",
+      "size": "TBD",
+      "features": [],
       "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "name": "LANCASTER 12 LOT PLATMAP.pdf",
       "page": null,
       "photos": [],
-      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+      "completeness": 0,
+      "description": "0% complete",
+      "docRefs": {
+        "platmap": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu"
+      }
     },
     {
       "id": "lot-9",
       "number": "Lot 9",
-      "size": "8,000 sq ft",
-      "features": [
-        "Level lot",
-        "Good drainage",
-        "Fully graded"
-      ],
+      "title": "Lot 9",
+      "size": "TBD",
+      "features": [],
       "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "name": "LANCASTER 12 LOT PLATMAP.pdf",
       "page": null,
       "photos": [],
-      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+      "completeness": 0,
+      "description": "0% complete",
+      "docRefs": {
+        "platmap": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu"
+      }
     },
     {
       "id": "lot-10",
       "number": "Lot 10",
-      "size": "7,400 sq ft",
-      "features": [
-        "Compact design",
-        "Efficient layout",
-        "Fully graded"
-      ],
+      "title": "Lot 10",
+      "size": "TBD",
+      "features": [],
       "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "name": "LANCASTER 12 LOT PLATMAP.pdf",
       "page": null,
       "photos": [],
-      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+      "completeness": 0,
+      "description": "0% complete",
+      "docRefs": {
+        "platmap": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu"
+      }
     },
     {
       "id": "lot-11",
       "number": "Lot 11",
-      "size": "8,300 sq ft",
-      "features": [
-        "End lot",
-        "Extra privacy",
-        "Fully graded"
-      ],
+      "title": "Lot 11",
+      "size": "TBD",
+      "features": [],
       "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "name": "LANCASTER 12 LOT PLATMAP.pdf",
       "page": null,
       "photos": [],
-      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+      "completeness": 0,
+      "description": "0% complete",
+      "docRefs": {
+        "platmap": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu"
+      }
     },
     {
       "id": "lot-12",
       "number": "Lot 12",
-      "size": "8,600 sq ft",
-      "features": [
-        "Largest lot",
-        "Premium location",
-        "Fully graded"
-      ],
+      "title": "Lot 12",
+      "size": "TBD",
+      "features": [],
       "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "name": "LANCASTER 12 LOT PLATMAP.pdf",
       "page": null,
       "photos": [],
-      "name": "LANCASTER 12 LOT PLATMAP.pdf"
-    }
-  ],
-  "plans": [
-    {
-      "id": "plan-1",
-      "title": "Plan 1",
-      "description": "Modern single-story, 3BR/2BA, 1,850 sq ft",
-      "file": "1CD8_dbyKPeTrv93da8RPFcEGqzYZfx66",
-      "icon": "\ud83c\udfe0",
-      "name": "LANCASTER PLAN 1 PLANS.pdf"
-    },
-    {
-      "id": "plan-2",
-      "title": "Plan 2",
-      "description": "Two-story family home, 4BR/3BA, 2,400 sq ft",
-      "file": "1iB_8oMFpc4hT0qHj-lQPzSqyiK0IoXax",
-      "icon": "\ud83c\udfe1",
-      "name": "LANCASTER PLAN 2 PLANS.pdf"
-    },
-    {
-      "id": "plan-3",
-      "title": "Plan 3",
-      "description": "Premium design, 4BR/3BA, 2,650 sq ft",
-      "file": "1iB_8oMFpc4hT0qHj-lQPzSqyiK0IoXax",
-      "icon": "\ud83c\udfd8\ufe0f",
-      "name": "LANCASTER PLAN 3 PLANS.pdf"
-    },
-    {
-      "id": "plan-4",
-      "title": "Plan 4",
-      "description": "Luxury layout, 5BR/4BA, 3,200 sq ft",
-      "file": "19Qdbb8TE6yofrz8tHHJ2c6X3wFncQO5Q",
-      "icon": "\ud83c\udfdb\ufe0f",
-      "name": "LANCASTER PLAN 4.pdf"
-    },
-    {
-      "id": "desert-crest",
-      "title": "Desert Crest Plan",
-      "description": "Southwest style, 3BR/2BA, 2,100 sq ft",
-      "file": "1iB_8oMFpc4hT0qHj-lQPzSqyiK0IoXax",
-      "icon": "\ud83c\udf35",
-      "name": "DESERT CREST HOMES PLAN I.pdf"
+      "completeness": 0,
+      "description": "0% complete",
+      "docRefs": {
+        "platmap": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu"
+      }
     }
   ],
   "projectDocs": [
     {
-      "id": "tentative-map",
-      "title": "Tentative Map",
-      "description": "Official lot layout and dimensions",
+      "id": "platmap-1",
+      "title": "Verella Court \u2013 Tract 61542 Map (Lot 2)",
+      "description": "Assessor/plat map showing 43741 Verella Ct (Lot 2 of Tract 61542, APN 3203-063-002)",
       "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
       "icon": "\ud83d\uddfa\ufe0f",
-      "name": "LANCASTER 12 LOT TENTATIVE MAP.pdf"
+      "name": "LANCASTER 12 LOT PLATMAP.pdf"
     },
     {
-      "id": "entitlements",
-      "title": "Entitlements",
-      "description": "All development permissions and approvals",
-      "file": "1LVgekZNhiSxFAdOTDDonR6MHQQFIu7Z9",
-      "icon": "\ud83d\udccb",
-      "name": "LANCASTER 12 ENTITLEMENTS.pdf"
-    },
-    {
-      "id": "grading-plan",
-      "title": "Grading Plan",
-      "description": "Conceptual site grading (March 2025)",
-      "file": "1iB_8oMFpc4hT0qHj-lQPzSqyiK0IoXax",
-      "icon": "\ud83d\udcd0",
-      "name": "LANCASTER Conceptual Grading Plan 03202025 (1).pdf"
-    },
-    {
-      "id": "llc-info",
-      "title": "LLC Information",
-      "description": "Company details and structure",
+      "id": "llc_info-4",
+      "title": "Entity Documents \u2013 Ave K22, LLC",
+      "description": "Ownership/LLC documentation for the property entity (Owner of 43741 Verella Ct)",
       "file": "1W3KtdCs-j8Hcuwt3cJvBoDzAlDS9GOjm",
       "icon": "\ud83c\udfe2",
       "name": "LANCASTER 43741 LLC INFO.pdf"
     },
     {
-      "id": "verella-court",
-      "title": "Verella Court",
-      "description": "Preliminary court designs",
+      "id": "misc-6",
+      "title": "Preliminary Title Report \u2013 43741 Verella Ct",
+      "description": "First American Title Report (Order O-SA-7278395) with legal description, taxes, liens, easements, and assessor map",
       "file": "1KgJr4lTNedGsxkpFVONGl31Qok-VU55B",
-      "icon": "\ud83c\udfd8\ufe0f",
-      "name": "VERELLA COURT Prelim - 7278395 (2).pdf"
-    },
-    {
-      "id": "duke-development",
-      "title": "Duke Development",
-      "description": "July planning update",
-      "file": "1o4VHR6ykjUqENFBucqHa0X0NDXOCJia5",
-      "icon": "\ud83d\udcc5",
-      "name": "LANCASTER 12 DUKE JULY.pdf"
+      "icon": "\ud83d\udcc4",
+      "name": "VERELLA COURT Prelim - 7278395.pdf"
     }
-  ]
+  ],
+  "photos": [],
+  "drive": {
+    "folderId": "1_cSGSHD-JK0HnrydV_PPzKuSoIrMDEk5"
+  },
+  "flags": {
+    "hideEmptySections": true
+  }
 }
