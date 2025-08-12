@@ -71,7 +71,7 @@ Update these in `data.js`:
 
 ## 📞 Contact
 
-**Lancaster 43741 LLC**
+**Huntington Beach Capital Partners, Inc.**
 - Phone: 714-713-8618
 - Email: rickreza@yahoo.com
 - Drive Folder: [View All Files](https://drive.google.com/drive/folders/1iXsOCeIYZAK3DGknFOYZENNATpyavLW-)

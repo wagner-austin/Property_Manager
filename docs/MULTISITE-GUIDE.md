@@ -80,7 +80,7 @@ Each site's `data.json` contains:
     }
   },
   "contact": {
-    "companyName": "Lancaster 43741 LLC",
+    "companyName": "Huntington Beach Capital Partners, Inc.",
     "phoneDisplay": "714-713-8618",
     "phoneE164": "+17147138618",
     "email": "rickreza@yahoo.com",
