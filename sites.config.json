@@ -1,0 +1,77 @@
+{
+  "global": {
+    "default_bedrooms": 3,
+    "default_bathrooms": 2,
+    "default_sqft": 2000,
+    "strict_mode": true,
+    "max_misc_docs": 5
+  },
+  "sites": [
+    {
+      "slug": "lancaster-12",
+      "name": "Lancaster 12",
+      "aliases": ["LANCASTER", "LANCASTER 12", "LANCASTER12"],
+      "drive_folder_id": "1_cSGSHD-JK0HnrydV_PPzKuSoIrMDEk5",
+      "require_public_subfolder": false,
+      "lot_count": 12,
+      "lot_pages": {},
+      "lot_details": {
+        "2": {
+          "apn": "3203-063-002",
+          "address": "43741 Verella Ct",
+          "status": "Owned",
+          "size": "~0.25 acres",
+          "has_title_report": true,
+          "has_grading": false,
+          "has_plan_assignment": false,
+          "doc_refs": {
+            "title_report": "1KgJr4lTNedGsxkpFVONGl31Qok-VU55B"
+          }
+        }
+      },
+      "plan_details": {
+        "1": {"bedrooms": 4, "bathrooms": 3, "sqft": 2168, "stories": 1, "garage_sf": 440},
+        "2": {"bedrooms": 4, "bathrooms": 3, "sqft": 2446, "stories": 2, "garage_sf": 413, "porch_sf": 121},
+        "3": {"bedrooms": 5, "bathrooms": 3, "sqft": 2693, "stories": 2, "garage_sf": 420, "porch_sf": 162},
+        "4": {"bedrooms": 4, "bathrooms": 3, "sqft": 2542, "stories": 1, "garage_sf": 664, "porch_sf": 146, "patio_sf": 167}
+      },
+      "document_overrides": {
+        "platmap": {
+          "title": "Verella Court – Tract 61542 Map (Lot 2)",
+          "description": "Assessor/plat map showing 43741 Verella Ct (Lot 2 of Tract 61542, APN 3203-063-002)"
+        },
+        "entitlements": {
+          "hide": true,
+          "title": "Duke Engineering Invoice",
+          "description": "Invoice for engineering services - not an approval or entitlements document"
+        },
+        "grading": {
+          "hide": true,
+          "title": "Conceptual Grading Plan",
+          "description": "Upload pending - referenced in Duke Engineering invoice"
+        },
+        "llc_info": {
+          "title": "Entity Documents – Ave K22, LLC",
+          "description": "Ownership/LLC documentation for the property entity (Owner of 43741 Verella Ct)"
+        },
+        "presentation": {
+          "hide": true,
+          "title": "Lancaster 12 – Project Overview",
+          "description": "Presentation upload pending"
+        },
+        "misc-verella": {
+          "title": "Preliminary Title Report – 43741 Verella Ct",
+          "description": "First American Title Report (Order O-SA-7278395) with legal description, taxes, liens, easements, and assessor map"
+        }
+      },
+      "lot_requirements": {
+        "show_missing": false,
+        "hide_incomplete": false,
+        "required_docs": ["title_report", "grading", "plan_assignment"],
+        "show_status_in_size": false
+      },
+      "overrides": {},
+      "hide_empty_sections": true
+    }
+  ]
+}
