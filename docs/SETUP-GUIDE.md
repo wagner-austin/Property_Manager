@@ -46,23 +46,29 @@ make audit FOLDER_ID=<ROOT_FOLDER_ID> CHILD=Public
 
 ### 3. Configure the Site
 
-Edit `sites/lancaster-12/data.json`:
+Edit `sites.config.json`:
 ```json
 {
-  "drive": {
-    "publicFolderId": "<PUBLIC_LANCASTER_12_FOLDER_ID>"
-  }
+  "sites": [{
+    "slug": "lancaster-12",
+    "name": "Lancaster 12",
+    "drive_folder_id": "<PUBLIC_LANCASTER_12_FOLDER_ID>",
+    "lot_count": 12,
+    "lot_requirements": {
+      "required_docs": ["title_report", "grading", "plan_assignment"]
+    }
+  }]
 }
 ```
 
-### 4. Sync Drive IDs
+### 4. Generate Site Data
 
 ```bash
-# Fetch and apply Drive file IDs
-make drive-apply SITE=lancaster-12 FOLDER=<PUBLIC_FOLDER_ID>
+# Run smart mapper to generate data.json
+python scripts/smart_site_mapper.py
 
-# Or use the default (reads from data.json)
-make drive-apply SITE=lancaster-12
+# Or if you need manual Drive ID sync
+make drive-apply SITE=lancaster-12 FOLDER=<PUBLIC_FOLDER_ID>
 ```
 
 ### 5. Test Locally
@@ -138,20 +144,24 @@ make drive-apply SITE=palmdale-8
 
 ## 🔍 How File Matching Works
 
-The `get-drive-ids.py` script intelligently matches your configuration to Drive files:
+The `smart_site_mapper.py` script uses pattern recognition to categorize files:
 
-### Matching Algorithm
-1. **Normalizes** both config titles and file names (lowercase, remove punctuation)
-2. **Scores** matches based on:
-   - Token matching (words in common)
-   - Special patterns (Plan 1, Lot 5, etc.)
-   - Document types (presentation, entitlements, LLC info)
-3. **Selects** the highest scoring match
+### Pattern Recognition
+1. **Plans**: Recognizes `plan 1`, `model 1`, `unit 1`, `type 1`
+2. **Lots**: Matches `lot 1`, `parcel 1` with optional leading zeros
+3. **Documents**: Identifies platmaps, entitlements, grading plans, LLC docs
+4. **Smart Fallback**: Uses the most relevant document for each lot
+
+### Completeness Tracking
+- Tracks which documents are available per lot
+- Calculates completion percentage
+- Shows missing documents
+- Can hide incomplete lots
 
 ### Examples
-- Config: `"Plan 1"` → Matches: `"LANCASTER PLAN 1 PLANS.pdf"`
-- Config: `"Tentative Map"` → Matches: `"LANCASTER 12 LOT PLATMAP.pdf"`
-- Config: `"LLC Information"` → Matches: `"LANCASTER 43741 LLC INFO.pdf"`
+- File: `"LANCASTER PLAN 1 PLANS.pdf"` → Category: Plan #1
+- File: `"LANCASTER 12 LOT PLATMAP.pdf"` → Category: Platmap
+- File: `"LANCASTER 43741 LLC INFO.pdf"` → Category: LLC Information
 
 ### Debugging Matches
 ```bash

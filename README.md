@@ -5,6 +5,8 @@ Modern property marketing system for real estate developments with automated Goo
 ## ✨ Features
 
 - **📁 Google Drive Integration** - Automatic document syncing and management
+- **🤖 Smart File Mapping** - Intelligent pattern recognition for plans, lots, and documents
+- **📊 Completeness Tracking** - Monitor document availability per lot (title reports, grading, etc.)
 - **🏘️ Multi-Site Support** - Each property gets its own configuration
 - **📱 Responsive Design** - Mobile-first PDF viewer with smooth navigation  
 - **🎨 Professional UI** - Clean design optimized for real estate marketing
@@ -33,7 +35,10 @@ make debug
 Property_Manager/
 ├── sites/              # Site-specific data
 │   └── lancaster-12/   # Lancaster property (12 lots)
-├── scripts/            # Python automation tools  
+├── scripts/            # Python automation tools
+│   ├── smart_site_mapper.py  # Intelligent file categorization
+│   └── audit_drive_files.py  # Drive inventory generation
+├── sites.config.json   # Site configurations with lot tracking
 ├── js/                 # Frontend JavaScript
 ├── css/                # Styles
 ├── config/             # Configuration files
@@ -49,6 +54,9 @@ make lint
 # Audit Drive files
 make drive-audit
 
+# Generate site data with smart mapper
+python scripts/smart_site_mapper.py
+
 # Update site data with Drive IDs
 make drive-apply SITE=lancaster-12
 
@@ -63,8 +71,14 @@ make pack
    - Run `python -m scripts.setup_drive_api`
 
 2. **Site Configuration**
-   - Edit `config/settings.json` for folder IDs
-   - Each site has its own `sites/[name]/data.json`
+   - Edit `sites.config.json` for site details and lot tracking
+   - Configure lot requirements and document completeness
+   - Each site generates its own `sites/[name]/data.json`
+
+3. **Lot Tracking**
+   - Define required documents per lot
+   - Track completeness percentages
+   - Configure which lots to show/hide
 
 ## 🔧 Tech Stack
 
