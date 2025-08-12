@@ -298,6 +298,13 @@ header::after {
   font-size: 0.95rem;
 }
 
+.lot-description {
+  margin: 0.25rem 0 0.5rem;
+  padding: 0 20px;
+  opacity: 0.8;
+  font-size: 0.95rem;
+}
+
 .lot-content {
   padding: 20px;
 }
@@ -340,10 +347,30 @@ header::after {
   text-align: center;
   border: 1px solid var(--border);
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
 }
 
 .plan-card:hover {
   box-shadow: var(--shadow-md);
+}
+
+.plan-header {
+  flex: 0 0 auto;
+}
+
+.plan-content {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.plan-card .btn {
+  width: 100%;
+}
+
+.plan-description:empty {
+  display: none;
 }
 
 .plan-icon {
