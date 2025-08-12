@@ -1,90 +1,144 @@
 # 🚀 Deployment Guide
 
 ## Prerequisites
-✅ Add your Google Drive file IDs to `js/data.js`
-✅ Test locally with `scripts/test-server.bat` (Windows) or `scripts/test-server.sh` (Mac/Linux)
+✅ Drive IDs configured in `sites/[site-name]/data.json`
+✅ Test locally with `make serve`
+✅ All linting passing with `make lint`
 
 ## Create Deployment Package
 
-### Windows
-```cmd
-scripts\create-deployment.bat
-```
-
-### Mac/Linux
 ```bash
-chmod +x scripts/create-deployment.sh
-./scripts/create-deployment.sh
+# Create deployment.zip with all necessary files
+make pack
 
-# Or with custom name:
-./scripts/create-deployment.sh lancaster-site.zip
+# Or manually specify output
+make pack OUT=my-site.zip
 ```
 
-## Deploy Options
+## Deployment Options
 
-### 1️⃣ Netlify Drop (Easiest - No Account Needed)
+### 1️⃣ GitHub Pages (Recommended - FREE)
+
+#### Setup (One Time)
+1. Push code to GitHub repository
+2. Go to **Settings** → **Pages**
+3. Source: **Deploy from a branch**
+4. Branch: **main** → **/ (root)**
+5. Click **Save**
+
+#### Your Site URL
+```
+https://[username].github.io/[repository-name]/
+```
+
+Example: `https://wagner-austin.github.io/Property_Manager/`
+
+#### Updates
+- Simply push to main branch
+- Site updates automatically in ~2-5 minutes
+
+### 2️⃣ Netlify (Easy Drag & Drop)
+
+#### No Account Needed
 1. Go to [app.netlify.com/drop](https://app.netlify.com/drop)
-2. Drag `deployment.zip` onto the page
+2. Drag your `deployment.zip` onto the page
 3. Get instant URL like `amazing-wilson-abc123.netlify.app`
-4. Optional: Create free account to customize URL
 
-### 2️⃣ GitHub Pages (Free with Custom Domain)
-1. Create new GitHub repository
-2. Extract `deployment.zip`
-3. Push files to `main` branch
-4. Go to Settings → Pages → Deploy from branch → main
-5. Site available at `https://[username].github.io/[repo-name]/`
+#### With Account (Free)
+1. Sign up at [netlify.com](https://netlify.com)
+2. Connect GitHub repository
+3. Auto-deploys on every push
+4. Custom domain support
 
 ### 3️⃣ Vercel (Fast Global CDN)
+
 1. Go to [vercel.com](https://vercel.com)
 2. Sign up with GitHub
-3. Drag `deployment.zip` or connect repo
+3. Import repository
 4. Automatic deploys on every push
+5. Excellent performance analytics
 
-### 4️⃣ Traditional Hosting (cPanel, FTP)
+### 4️⃣ Traditional Hosting (cPanel/FTP)
+
 1. Extract `deployment.zip`
-2. Upload contents via FTP to `public_html/` or `www/`
-3. Ensure `index.html` is in root
+2. Upload all files via FTP to:
+   - `public_html/` (root domain)
+   - `public_html/properties/` (subdirectory)
+3. Ensure `index.html` is in the root
+4. Set folder permissions to 755
 
-## Verify Deployment
+### 5️⃣ AWS S3 + CloudFront
 
-After deploying, check:
-- [ ] Homepage loads
-- [ ] Console has no errors (F12 → Console)
-- [ ] Click a document - modal opens
-- [ ] "Open in Drive" links work
-- [ ] Mobile responsive (resize browser)
-- [ ] Contact links work
+```bash
+# Upload to S3
+aws s3 sync . s3://your-bucket-name --exclude ".*" --exclude "node_modules/*"
+
+# Enable static website hosting
+aws s3 website s3://your-bucket-name --index-document index.html
+
+# Optional: Add CloudFront for CDN
+```
 
 ## Custom Domain Setup
 
-### Netlify
-1. Site Settings → Domain Management → Add custom domain
-2. Add CNAME record: `www` → `[your-site].netlify.app`
-3. Add A record: `@` → `75.2.60.5`
+### For GitHub Pages
+1. Create `CNAME` file with your domain
+2. Configure DNS:
+   - A record: `185.199.108.153`
+   - A record: `185.199.109.153`
+   - A record: `185.199.110.153`
+   - A record: `185.199.111.153`
+   - CNAME: `www` → `[username].github.io`
 
-### GitHub Pages
-1. Settings → Pages → Custom domain
-2. Add CNAME record: `www` → `[username].github.io`
-3. Enable "Enforce HTTPS"
+### For Netlify/Vercel
+1. Add custom domain in dashboard
+2. Follow their DNS configuration guide
+3. Automatic SSL certificates
+
+## Verify Deployment
+
+### Quick Checks
+- ✅ Homepage loads
+- ✅ PDF viewer opens
+- ✅ Mobile responsive
+- ✅ Contact links work
+- ✅ Drive folder button links correctly
+
+### Debug Mode
+Add `?debug=1` to URL and check browser console:
+```
+https://your-site.com/?site=lancaster-12&debug=1
+```
 
 ## Troubleshooting
 
-**Drive preview not loading?**
-- Check Drive files are set to "Anyone with link can view"
-- Try "Open in Drive" button as fallback
+### PDFs Not Loading
+- Check Drive permissions (must be "Anyone with link")
+- Verify file IDs in `sites/[site]/data.json`
+- Check browser console for errors
 
-**404 errors?**
-- Ensure all files from `deployment.zip` were uploaded
-- Check file paths are lowercase (some servers are case-sensitive)
+### Site Not Updating
+- GitHub Pages: Wait 5-10 minutes
+- Clear browser cache (Ctrl+Shift+R)
+- Check GitHub Actions tab for build errors
 
-**Mobile issues?**
-- Clear browser cache
-- Test in incognito/private mode
+### 404 Errors
+- Ensure all file paths are relative
+- Check case sensitivity (especially on Linux hosts)
+- Verify `.htaccess` if using Apache
 
-## Update Content
+## Environment Variables
 
-1. Edit `js/data.js` with new Drive links
-2. Re-run deployment script
-3. Upload new `deployment.zip`
-4. Changes appear immediately (may need to clear cache)
+For advanced deployments, set these in your hosting platform:
+
+```bash
+# Optional: Override default site
+DEFAULT_SITE=lancaster-12
+
+# Optional: Google Analytics
+GA_TRACKING_ID=UA-XXXXXXXXX-X
+```
+
+---
+
+Need help? Contact: rickreza@yahoo.com
