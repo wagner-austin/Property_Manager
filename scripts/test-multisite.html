@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Multi-Site Test</title>
+    <style>
+        body { font-family: system-ui; padding: 2rem; max-width: 800px; margin: 0 auto; }
+        h1 { color: #1a365d; }
+        .test-links { display: flex; gap: 1rem; flex-wrap: wrap; margin: 2rem 0; }
+        .test-link { 
+            padding: 1rem 2rem; 
+            background: #2563eb; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .test-link:hover { background: #1a365d; transform: translateY(-2px); }
+        .test-link.error { background: #dc2626; }
+        .test-link.error:hover { background: #991b1b; }
+        .info { background: #f0f9ff; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        .warning { background: #fef3c7; }
+        code { background: #e0e7ff; padding: 2px 6px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>🏗️ Multi-Site Property Marketing Test</h1>
+    
+    <div class="info">
+        <h2>✅ Setup Complete!</h2>
+        <p>Your multi-site architecture is ready. Each property gets its own data file:</p>
+        <ul>
+            <li><code>sites/lancaster-12/data.json</code> - Lancaster 12 Lots ✅</li>
+            <li><code>sites/palmdale-8/data.json</code> - (create for new property)</li>
+            <li><code>sites/ranchita-20/data.json</code> - (create for new property)</li>
+        </ul>
+    </div>
+
+    <h2>Test Links:</h2>
+    <div class="test-links">
+        <a href="../index.html?site=lancaster-12" class="test-link">
+            Lancaster 12 Lots
+        </a>
+        <a href="../index.html" class="test-link">
+            Default (Lancaster)
+        </a>
+        <a href="../index.html?site=does-not-exist" class="test-link error">
+            Broken Slug (tests error)
+        </a>
+    </div>
+
+    <div class="info">
+        <h3>📝 To Add a New Property:</h3>
+        <ol>
+            <li>Create folder: <code>sites/[property-slug]/</code></li>
+            <li>Copy <code>sites/lancaster-12/data.json</code> to new folder</li>
+            <li>Edit the JSON with new property details</li>
+            <li>Access via: <code>index.html?site=[property-slug]</code></li>
+        </ol>
+    </div>
+
+    <div class="info">
+        <h3>🚀 Features Working:</h3>
+        <ul>
+            <li>✅ Multi-site loading via URL parameter</li>
+            <li>✅ Drive ID extraction from URLs</li>
+            <li>✅ External URL support (non-Drive PDFs)</li>
+            <li>✅ Theme customization per property</li>
+            <li>✅ Backward compatibility with legacy data.js</li>
+            <li>✅ Click-outside to close modal</li>
+            <li>✅ Mobile responsive</li>
+            <li>✅ Error handling for missing sites</li>
+        </ul>
+    </div>
+
+    <div class="info warning">
+        <h3>⚠️ PDF.js Viewer (Optional)</h3>
+        <p>If you want to use PDF.js for page-specific jumps:</p>
+        <ol>
+            <li>Download PDF.js from <a href="https://mozilla.github.io/pdf.js/getting_started/">Mozilla</a></li>
+            <li>Extract to <code>vendor/pdfjs/</code> in project root</li>
+            <li>Set <code>"viewer": "pdfjs"</code> in your data.json</li>
+            <li>Test at: <a href="../vendor/pdfjs/web/viewer.html">../vendor/pdfjs/web/viewer.html</a></li>
+        </ol>
+        <p><strong>Note:</strong> Google Drive preview works great for most cases and requires no setup!</p>
+    </div>
+
+    <div class="info">
+        <h3>🔗 Direct Test URLs:</h3>
+        <p>After running <code>make serve</code> or <code>test-server.bat</code>:</p>
+        <ul>
+            <li><a href="http://localhost:8000/index.html?site=lancaster-12" target="_blank">
+                http://localhost:8000/index.html?site=lancaster-12
+            </a></li>
+            <li><a href="http://localhost:8000/index.html" target="_blank">
+                http://localhost:8000/index.html
+            </a> (uses default)</li>
+            <li><a href="http://localhost:8000/scripts/test-multisite.html" target="_blank">
+                http://localhost:8000/scripts/test-multisite.html
+            </a> (this page)</li>
+        </ul>
+    </div>
+
+    <div class="info">
+        <h3>📊 Next Steps:</h3>
+        <ol>
+            <li>Run <code>python scripts/get-drive-urls.py</code> to generate URL template</li>
+            <li>Get share links from Google Drive for each PDF</li>
+            <li>Update <code>urls.json</code> with actual Drive IDs</li>
+            <li>Run <code>python scripts/update-data-js.py</code> to auto-fill data.json</li>
+            <li>Test with <code>make check</code> to verify all links are set</li>
+            <li>Deploy with <code>make pack</code> → creates deployment.zip</li>
+        </ol>
+    </div>
+</body>
+</html>

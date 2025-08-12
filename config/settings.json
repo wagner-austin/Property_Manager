@@ -1,0 +1,12 @@
+{
+  "publicFolderPath": "G:\\My Drive\\Corvis AI\\Work\\Rick\\Public\\lancaster-12",
+  "publicFolderId": "1_cSGSHD-JK0HnrydV_PPzKuSoIrMDEk5",
+  "sites": {
+    "dataPath": "./sites",
+    "defaultSite": "lancaster-12"
+  },
+  "apiKeys": {
+    "googleDrive": "./config/credentials.json",
+    "token": "./config/token.json"
+  }
+}

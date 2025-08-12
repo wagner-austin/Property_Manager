@@ -1,0 +1,44 @@
+{
+  "slug": "REPLACE_ME",
+  "brand": {
+    "title": "REPLACE_ME",
+    "tagline": "Premium Development Properties",
+    "theme": {
+      "primary": "#1a365d",
+      "accent": "#2563eb",
+      "success": "#10b981"
+    }
+  },
+  "contact": {
+    "companyName": "REPLACE_ME",
+    "phoneDisplay": "REPLACE_ME",
+    "phoneE164": "REPLACE_ME",
+    "email": "REPLACE_ME"
+  },
+  "drive": {
+    "publicFolderId": "REPLACE_ME",
+    "folderId": ""
+  },
+  "location": {
+    "city": "",
+    "state": "",
+    "zip": "",
+    "lat": 0,
+    "lng": 0
+  },
+  "viewer": "drive",
+  "heroBullets": [
+    "Fully Graded",
+    "Entitlements Complete",
+    "Development Ready"
+  ],
+  "presentation": {
+    "title": "Complete Presentation",
+    "description": "",
+    "file": "",
+    "icon": "📊"
+  },
+  "lots": [],
+  "plans": [],
+  "projectDocs": []
+}

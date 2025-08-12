@@ -1,0 +1,83 @@
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor Files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Node (if you add linting)
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# Temporary Files
+*.tmp
+*.temp
+*.log
+
+# Local Config (if you add any)
+.env
+config.local.js
+
+# Backup Files
+*.backup
+*.bak
+*.old
+
+# Archive Files
+*.zip
+*.tar.gz
+*.rar
+
+# Google API credentials/tokens (NEVER commit these)
+credentials.json
+token.json
+config/credentials.json
+config/token.json
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build artifacts
+deployment.zip
+
+# Local audit/mapping files
+file-mapping.json
+file-mapping.csv
+urls.json
+urls.csv
+
+# Python virtual environments
+venv/
+env/
+.venv/
+
+# Python tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+
+# Backup JSONs created by get-drive-ids.py
+*.bak.*.json
+*.bak.*
+
+# Sometimes used by Google samples
+token.pickle
+
+# Cleanup script trash folder
+.trash/
+
+# Local artifacts
+logs/
+
+# Server process file
+.server.pid

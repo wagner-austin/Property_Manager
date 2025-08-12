@@ -1,0 +1,717 @@
+/* ==========================================
+   Lancaster 12 Lots - Stylesheet
+   ========================================== */
+
+/* Reset & Variables */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #1a365d;
+  --primary-dark: #0f2442;
+  --accent: #2563eb;
+  --text-dark: #1e293b;
+  --text-light: #64748b;
+  --bg-light: #f8fafc;
+  --border: #e2e8f0;
+  --success: #10b981;
+  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Base Styles */
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background: white;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/* Header */
+header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  padding: 80px 0 100px;
+  position: relative;
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: white;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+.hero-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tagline {
+  font-size: 1.25rem;
+  opacity: 0.95;
+  margin-bottom: 40px;
+}
+
+.hero-bullets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.hero-bullet {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+}
+
+.hero-bullet::before {
+  content: '✓';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: white;
+  color: var(--primary);
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+/* Buttons */
+.primary-cta,
+.btn,
+.download-btn {
+  display: inline-block;
+  padding: 16px 40px;
+  background: white;
+  color: var(--primary);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  border: none;
+}
+
+.primary-cta:hover,
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn {
+  width: 100%;
+  padding: 12px 20px;
+  background: var(--accent);
+  color: white;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background: var(--primary);
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+}
+
+.btn-secondary:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* Contact Bar */
+.contact-bar {
+  background: white;
+  padding: 25px;
+  margin: -60px auto 60px;
+  max-width: 900px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  z-index: 10;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  text-align: center;
+}
+
+.contact-item h3 {
+  color: var(--primary);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.contact-item p {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+.contact-item a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.contact-item a:hover {
+  text-decoration: underline;
+}
+
+/* Sections */
+.section {
+  padding: 80px 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Lots Grid */
+.lots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.lot-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.lot-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+/* Lot thumbnail wrapper - modern browsers */
+.lot-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--bg-light);
+  border-bottom: 1px solid var(--border);
+}
+
+.lot-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Fallback for older Safari/browsers without aspect-ratio support */
+@supports not (aspect-ratio: 1 / 1) {
+  .lot-img {
+    position: relative;
+    height: 0;
+    padding-top: 62.5%; /* 16:10 ratio */
+  }
+
+  .lot-img img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.lot-header {
+  background: var(--bg-light);
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.lot-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 5px;
+}
+
+.lot-size {
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+.lot-content {
+  padding: 20px;
+}
+
+.lot-features {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.lot-features li {
+  padding: 8px 0;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lot-features li::before {
+  content: '•';
+  color: var(--success);
+  font-weight: bold;
+}
+
+/* Plans Section */
+.plans-section {
+  background: var(--bg-light);
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.plan-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.plan-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.plan-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--bg-light);
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.plan-title {
+  font-size: 1.3rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.plan-description {
+  color: var(--text-light);
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+/* Documents Grid */
+.documents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.doc-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  padding-bottom: 64px;
+  transition: all 0.3s ease;
+  position: relative;
+  min-height: 220px;
+}
+
+.doc-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+}
+
+.doc-icon {
+  color: var(--accent);
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.doc-title {
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 5px;
+}
+
+.doc-description {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 15px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.doc-actions {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.doc-link {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 10px 12px;
+  text-align: center;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.doc-link-view {
+  background: var(--accent);
+  color: white;
+}
+
+.doc-link-view:hover {
+  background: var(--primary);
+}
+
+.doc-link-download {
+  background: white;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.doc-link-download:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* Disabled state for buttons */
+.doc-link[disabled],
+.doc-link.disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Keyboard focus visibility */
+.doc-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* PDF Modal */
+.pdf-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  padding: 20px;
+}
+
+.pdf-modal.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdf-modal-header {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.pdf-modal-title {
+  font-size: 1.5rem;
+}
+
+.pdf-modal-actions {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.pdf-modal-actions a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid white;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.pdf-modal-actions a:hover {
+  background: white;
+  color: var(--primary);
+}
+
+.close-modal {
+  font-size: 2rem;
+  cursor: pointer;
+  color: white;
+  background: none;
+  border: none;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.close-modal:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.pdf-frame {
+  width: 100%;
+  max-width: 1200px;
+  height: 80vh;
+  border: none;
+  border-radius: 8px;
+  background: white;
+}
+
+/* Download Section */
+.download-section {
+  background: var(--primary);
+  color: white;
+  padding: 60px 0;
+  text-align: center;
+}
+
+.download-content h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.download-content p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  opacity: 0.95;
+}
+
+/* Footer */
+footer {
+  background: var(--primary-dark);
+  color: white;
+  padding: 40px 0;
+  text-align: center;
+}
+
+footer p {
+  margin: 10px 0;
+  opacity: 0.9;
+}
+
+/* Mobile Contact Bar */
+.mobile-contact-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 999;
+}
+
+.mobile-contact-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.mobile-contact-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: var(--accent);
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.mobile-contact-btn:nth-child(2) {
+  background: var(--success);
+}
+
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-light);
+}
+
+.spinner {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mobile-contact-bar {
+    display: block;
+  }
+
+  .contact-bar {
+    display: none;
+  }
+
+  .lots-grid,
+  .plans-grid,
+  .documents-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-bullets {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .section {
+    padding: 60px 0;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  footer {
+    padding-bottom: 80px;
+  }
+}
+
+/* Accessibility */
+.pdf-modal:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.close-modal:focus,
+.btn:focus,
+.doc-link:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .mobile-contact-bar,
+  .pdf-modal,
+  .download-section {
+    display: none;
+  }
+
+  header {
+    background: none;
+    color: black;
+  }
+
+  .hero-bullet::before {
+    background: black;
+    color: white;
+  }
+}

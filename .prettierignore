@@ -1,0 +1,7 @@
+node_modules/
+deployment.zip
+*.bak.*.json
+__pycache__/
+*.pyc
+.git/
+.husky/

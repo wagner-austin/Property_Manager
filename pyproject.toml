@@ -1,0 +1,53 @@
+[project]
+name = "property-manager"
+version = "0.1.0"
+description = "Property Manager with Google Drive integration"
+readme = "README.md"
+authors = [{ name = "Lancaster Properties" }]
+requires-python = ">=3.9"
+
+# PEP 621 dependencies use PEP 508 / 440 specifiers
+dependencies = [
+  "google-api-python-client>=2.178,<3",
+  "google-auth-httplib2>=0.2,<0.3",
+  "google-auth-oauthlib>=1.2.2,<2",
+]
+
+# Optional: declare entry points / scripts here later if you package this
+
+[tool.poetry]  # poetry-specific config lives here
+packages = [{ include = "scripts" }]
+
+[tool.poetry.scripts]
+drive-ids = "scripts.get_drive_ids:main"
+audit-drive = "scripts.audit_drive_files:main"
+gen-url-template = "scripts.generate_url_template:main"
+update-site-data = "scripts.update_site_data:main"
+setup-drive = "scripts.setup_drive_api:main"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.12.8"
+black = "^25.1.0"
+mypy = "^1.17.1"
+
+[build-system]
+requires = ["poetry-core>=2.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+ignore = ["E501"]  # handled by Black
+
+[tool.black]
+line-length = 120
+target-version = ["py39"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true

@@ -1,0 +1,305 @@
+{
+  "slug": "lancaster-12",
+  "brand": {
+    "title": "Lancaster 12 Lots",
+    "tagline": "Premium Development Properties - Ready for Your Vision",
+    "theme": {
+      "primary": "#1a365d",
+      "accent": "#2563eb",
+      "success": "#10b981"
+    }
+  },
+  "contact": {
+    "companyName": "Lancaster 43741 LLC",
+    "phoneDisplay": "714-713-8618",
+    "phoneE164": "+17147138618",
+    "email": "rickreza@yahoo.com",
+    "folderId": "1iXsOCeIYZAK3DGknFOYZENNATpyavLW-"
+  },
+  "location": {
+    "city": "Lancaster",
+    "state": "CA",
+    "zip": "93534",
+    "lat": 34.6868,
+    "lng": -118.1542
+  },
+  "drive": {
+    "publicFolderId": "1_cSGSHD-JK0HnrydV_PPzKuSoIrMDEk5",
+    "folderId": "1iXsOCeIYZAK3DGknFOYZENNATpyavLW-"
+  },
+  "viewer": "drive",
+  "heroBullets": [
+    "Fully Graded",
+    "Entitlements Complete",
+    "Development Ready"
+  ],
+  "presentation": {
+    "title": "Complete Presentation",
+    "description": "Full project overview and investment opportunity",
+    "file": "1892V0NrT0R10Hh6OcIY7LqNc3uCQWHJs",
+    "icon": "\ud83d\udcca",
+    "name": "AA 1 LANCASTER 12 PRESENTATION.pdf"
+  },
+  "lots": [
+    {
+      "id": "lot-1",
+      "number": "Lot 1",
+      "size": "7,500 sq ft",
+      "features": [
+        "Corner lot",
+        "Utilities ready",
+        "Fully graded"
+      ],
+      "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "page": null,
+      "photos": [],
+      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+    },
+    {
+      "id": "lot-2",
+      "number": "Lot 2",
+      "size": "8,200 sq ft",
+      "features": [
+        "Cul-de-sac location",
+        "Premium position",
+        "Fully graded"
+      ],
+      "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "page": null,
+      "photos": [],
+      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+    },
+    {
+      "id": "lot-3",
+      "number": "Lot 3",
+      "size": "7,800 sq ft",
+      "features": [
+        "Street frontage",
+        "Level terrain",
+        "Fully graded"
+      ],
+      "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "page": null,
+      "photos": [],
+      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+    },
+    {
+      "id": "lot-4",
+      "number": "Lot 4",
+      "size": "8,500 sq ft",
+      "features": [
+        "Large lot",
+        "Privacy",
+        "Fully graded"
+      ],
+      "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "page": null,
+      "photos": [],
+      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+    },
+    {
+      "id": "lot-5",
+      "number": "Lot 5",
+      "size": "7,600 sq ft",
+      "features": [
+        "Central location",
+        "Easy access",
+        "Fully graded"
+      ],
+      "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "page": null,
+      "photos": [],
+      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+    },
+    {
+      "id": "lot-6",
+      "number": "Lot 6",
+      "size": "7,900 sq ft",
+      "features": [
+        "Quiet street",
+        "Mountain views",
+        "Fully graded"
+      ],
+      "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "page": null,
+      "photos": [],
+      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+    },
+    {
+      "id": "lot-7",
+      "number": "Lot 7",
+      "size": "8,100 sq ft",
+      "features": [
+        "Premium corner",
+        "Dual access",
+        "Fully graded"
+      ],
+      "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "page": null,
+      "photos": [],
+      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+    },
+    {
+      "id": "lot-8",
+      "number": "Lot 8",
+      "size": "7,700 sq ft",
+      "features": [
+        "Standard lot",
+        "Ready to build",
+        "Fully graded"
+      ],
+      "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "page": null,
+      "photos": [],
+      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+    },
+    {
+      "id": "lot-9",
+      "number": "Lot 9",
+      "size": "8,000 sq ft",
+      "features": [
+        "Level lot",
+        "Good drainage",
+        "Fully graded"
+      ],
+      "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "page": null,
+      "photos": [],
+      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+    },
+    {
+      "id": "lot-10",
+      "number": "Lot 10",
+      "size": "7,400 sq ft",
+      "features": [
+        "Compact design",
+        "Efficient layout",
+        "Fully graded"
+      ],
+      "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "page": null,
+      "photos": [],
+      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+    },
+    {
+      "id": "lot-11",
+      "number": "Lot 11",
+      "size": "8,300 sq ft",
+      "features": [
+        "End lot",
+        "Extra privacy",
+        "Fully graded"
+      ],
+      "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "page": null,
+      "photos": [],
+      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+    },
+    {
+      "id": "lot-12",
+      "number": "Lot 12",
+      "size": "8,600 sq ft",
+      "features": [
+        "Largest lot",
+        "Premium location",
+        "Fully graded"
+      ],
+      "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "page": null,
+      "photos": [],
+      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+    }
+  ],
+  "plans": [
+    {
+      "id": "plan-1",
+      "title": "Plan 1",
+      "description": "Modern single-story, 3BR/2BA, 1,850 sq ft",
+      "file": "1CD8_dbyKPeTrv93da8RPFcEGqzYZfx66",
+      "icon": "\ud83c\udfe0",
+      "name": "LANCASTER PLAN 1 PLANS.pdf"
+    },
+    {
+      "id": "plan-2",
+      "title": "Plan 2",
+      "description": "Two-story family home, 4BR/3BA, 2,400 sq ft",
+      "file": "1iB_8oMFpc4hT0qHj-lQPzSqyiK0IoXax",
+      "icon": "\ud83c\udfe1",
+      "name": "LANCASTER PLAN 2 PLANS.pdf"
+    },
+    {
+      "id": "plan-3",
+      "title": "Plan 3",
+      "description": "Premium design, 4BR/3BA, 2,650 sq ft",
+      "file": "1iB_8oMFpc4hT0qHj-lQPzSqyiK0IoXax",
+      "icon": "\ud83c\udfd8\ufe0f",
+      "name": "LANCASTER PLAN 3 PLANS.pdf"
+    },
+    {
+      "id": "plan-4",
+      "title": "Plan 4",
+      "description": "Luxury layout, 5BR/4BA, 3,200 sq ft",
+      "file": "19Qdbb8TE6yofrz8tHHJ2c6X3wFncQO5Q",
+      "icon": "\ud83c\udfdb\ufe0f",
+      "name": "LANCASTER PLAN 4.pdf"
+    },
+    {
+      "id": "desert-crest",
+      "title": "Desert Crest Plan",
+      "description": "Southwest style, 3BR/2BA, 2,100 sq ft",
+      "file": "1iB_8oMFpc4hT0qHj-lQPzSqyiK0IoXax",
+      "icon": "\ud83c\udf35",
+      "name": "DESERT CREST HOMES PLAN I.pdf"
+    }
+  ],
+  "projectDocs": [
+    {
+      "id": "tentative-map",
+      "title": "Tentative Map",
+      "description": "Official lot layout and dimensions",
+      "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
+      "icon": "\ud83d\uddfa\ufe0f",
+      "name": "LANCASTER 12 LOT TENTATIVE MAP.pdf"
+    },
+    {
+      "id": "entitlements",
+      "title": "Entitlements",
+      "description": "All development permissions and approvals",
+      "file": "1LVgekZNhiSxFAdOTDDonR6MHQQFIu7Z9",
+      "icon": "\ud83d\udccb",
+      "name": "LANCASTER 12 ENTITLEMENTS.pdf"
+    },
+    {
+      "id": "grading-plan",
+      "title": "Grading Plan",
+      "description": "Conceptual site grading (March 2025)",
+      "file": "1iB_8oMFpc4hT0qHj-lQPzSqyiK0IoXax",
+      "icon": "\ud83d\udcd0",
+      "name": "LANCASTER Conceptual Grading Plan 03202025 (1).pdf"
+    },
+    {
+      "id": "llc-info",
+      "title": "LLC Information",
+      "description": "Company details and structure",
+      "file": "1W3KtdCs-j8Hcuwt3cJvBoDzAlDS9GOjm",
+      "icon": "\ud83c\udfe2",
+      "name": "LANCASTER 43741 LLC INFO.pdf"
+    },
+    {
+      "id": "verella-court",
+      "title": "Verella Court",
+      "description": "Preliminary court designs",
+      "file": "1KgJr4lTNedGsxkpFVONGl31Qok-VU55B",
+      "icon": "\ud83c\udfd8\ufe0f",
+      "name": "VERELLA COURT Prelim - 7278395 (2).pdf"
+    },
+    {
+      "id": "duke-development",
+      "title": "Duke Development",
+      "description": "July planning update",
+      "file": "1o4VHR6ykjUqENFBucqHa0X0NDXOCJia5",
+      "icon": "\ud83d\udcc5",
+      "name": "LANCASTER 12 DUKE JULY.pdf"
+    }
+  ]
+}
