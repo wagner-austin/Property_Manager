@@ -560,30 +560,34 @@ function renderLots(site) {
     const content = document.createElement('div');
     content.innerHTML = `
       <div class="lot-header">
-        <div class="lot-number">${lot.number}</div>
+        <div class="lot-number">${lot.title || lot.number}</div>
         <div class="lot-size">${lot.size || 'Size TBD'}</div>
       </div>
+      ${lot.description ? `<p class="lot-description">${lot.description}</p>` : ''}
       <div class="lot-content">
         <ul class="lot-features">
           ${(lot.features || []).map((f) => `<li>${f}</li>`).join('')}
         </ul>
-        <button class="btn">
-          View Lot Documents
-        </button>
+        <button class="btn">View Lot Documents</button>
       </div>
     `;
 
     card.appendChild(content);
 
     const button = card.querySelector('button');
-    const ref = lot.file || lot.fileId;
+    // Prefer title_report if present, else fallback to the lot's file/platmap
+    const ref =
+      (lot.docRefs &&
+        (lot.docRefs.title_report || lot.docRefs.grading || lot.docRefs.plan_assignment)) ||
+      lot.file ||
+      lot.fileId;
     const canOpen = !!getPreviewUrl(site, ref, lot.page);
 
     button.disabled = !canOpen;
     button.textContent = canOpen ? 'View Lot Documents' : 'Coming Soon';
     if (canOpen) {
       button.addEventListener('click', () => {
-        openPDF(site, ref, lot.number, lot.page);
+        openPDF(site, ref, lot.title || lot.number, lot.page);
       });
     }
 
@@ -602,12 +606,16 @@ function renderPlans(site) {
     card.className = 'plan-card';
 
     card.innerHTML = `
-      <div class="plan-icon">${plan.icon || '🏠'}</div>
-      <h3 class="plan-title">${plan.title}</h3>
-      <p class="plan-description">${plan.description || ''}</p>
-      <button class="btn">
-        View Floor Plan
-      </button>
+      <div class="plan-header">
+        <div class="plan-icon">${plan.icon || '🏠'}</div>
+        <h3 class="plan-title">${plan.title}</h3>
+        ${plan.description ? `<p class="plan-description">${plan.description}</p>` : ''}
+      </div>
+      <div class="plan-content">
+        <button class="btn" aria-label="View ${plan.title} PDF">
+          View Floor Plan
+        </button>
+      </div>
     `;
 
     const button = card.querySelector('button');
