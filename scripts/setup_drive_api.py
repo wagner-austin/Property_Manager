@@ -40,7 +40,7 @@ def main():
 
     print("\nIn the browser:")
     print("1. Click 'SELECT PROJECT' or create new")
-    print("2. Name it something like 'Lancaster Properties'")
+    print("2. Name it something like 'Property Manager'")
     print("3. Click 'ENABLE' for Google Drive API")
     print()
 
@@ -57,7 +57,7 @@ def main():
     print("1. Click '+ CREATE CREDENTIALS' → 'OAuth client ID'")
     print("2. If prompted, configure consent screen:")
     print("   - User Type: External")
-    print("   - App name: Lancaster Properties")
+    print("   - App name: Property Manager")
     print("   - Your email for support")
     print("   - Add your email to test users")
     print("3. For Application type: Choose 'Desktop app'")

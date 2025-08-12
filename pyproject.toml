@@ -3,7 +3,7 @@ name = "property-manager"
 version = "0.1.0"
 description = "Property Manager with Google Drive integration"
 readme = "README.md"
-authors = [{ name = "Lancaster Properties" }]
+authors = [{ name = "Austin Wagner" }]
 requires-python = ">=3.9"
 
 # PEP 621 dependencies use PEP 508 / 440 specifiers
