@@ -22,6 +22,15 @@
   }
 
   // --- Utilities ---
+  // Path normalizer: always resolve relative to the document (respects <base href> if present)
+  const resolveAsset = (u) => {
+    if (!u) return u;
+    const s = String(u).trim().replace(/\\/g, '/'); // normalize slashes
+    if (/^[a-z][a-z0-9+.-]*:|^\/\//i.test(s)) return s; // absolute or protocol-relative
+    const rel = s.replace(/^\//, ''); // avoid domain-root paths
+    return new URL(rel, document.baseURI).href; // works at / and /repo/
+  };
+
   // Extract Drive ID from various formats
   const extractDriveId = (val) => {
     if (!val) return '';
@@ -127,7 +136,7 @@
       });
     };
 
-    el.src = url;
+    el.src = resolveAsset(url);
     if (conf.alt) el.alt = conf.alt;
     if (conf.width) el.width = conf.width;
     if (conf.height) el.height = conf.height;
@@ -146,8 +155,9 @@
       logger.warn('No URL for background');
       return;
     }
-    logger.info('Applying background:', { url, overlay: conf.overlay });
-    el.style.setProperty('--hero-image', `url("${url}")`);
+    const resolvedUrl = resolveAsset(url);
+    logger.info('Applying background:', { url: resolvedUrl, overlay: conf.overlay });
+    el.style.setProperty('--hero-image', `url("${resolvedUrl}")`);
     el.style.setProperty('--hero-overlay', toOverlay(conf.overlay));
     el.style.setProperty('--hero-position', conf.position || 'center center');
     el.style.setProperty('--hero-size', conf.size || 'cover');
@@ -274,7 +284,7 @@
           url: heroUrl,
           message: 'Check file path',
         });
-      probe.src = heroUrl;
+      probe.src = resolveAsset(heroUrl);
     }
 
     // Then apply background (next frame gives preload a head start)
@@ -298,13 +308,30 @@
   const sec = cfg.backgrounds?.sections || {};
   if (sec.plans?.enabled) {
     const el = document.getElementById('plans');
-    if (el)
-      el.style.backgroundImage = `${sec.plans.overlay ? toOverlay(sec.plans.overlay) + ',' : ''} url("${pickUrl(sec.plans, cfg.placeholders?.background)}")`;
+    if (el) {
+      const plansUrl = resolveAsset(pickUrl(sec.plans, cfg.placeholders?.background));
+      el.style.backgroundImage = `${sec.plans.overlay ? toOverlay(sec.plans.overlay) + ',' : ''} url("${plansUrl}")`;
+    }
   }
   if (sec.documents?.enabled) {
     const el = document.getElementById('documents');
-    if (el)
-      el.style.backgroundImage = `${sec.documents.overlay ? toOverlay(sec.documents.overlay) + ',' : ''} url("${pickUrl(sec.documents, cfg.placeholders?.background)}")`;
+    if (el) {
+      const docsUrl = resolveAsset(pickUrl(sec.documents, cfg.placeholders?.background));
+      el.style.backgroundImage = `${sec.documents.overlay ? toOverlay(sec.documents.overlay) + ',' : ''} url("${docsUrl}")`;
+    }
+  }
+
+  // --- About section background (uses same image as hero) ---
+  const aboutSection = document.querySelector('.owner--about');
+  if (aboutSection && cfg.backgrounds?.hero) {
+    const aboutBgUrl = resolveAsset(pickUrl(cfg.backgrounds.hero, cfg.placeholders?.background));
+    if (aboutBgUrl && cfg.backgrounds.hero.enabled) {
+      // Apply the background image directly, combining with the existing gradient
+      const gradient =
+        'linear-gradient(135deg, rgba(10, 80, 113, 0.15) 0%, rgba(0, 61, 91, 0.25) 100%)';
+      aboutSection.style.backgroundImage = `${gradient}, url("${aboutBgUrl}")`;
+      logger.debug('About section background applied:', { url: aboutBgUrl });
+    }
   }
 
   // --- Lot photos ---
@@ -318,7 +345,7 @@
   const hydrateLotCard = (card) => {
     const id = card.getAttribute('data-lot-id'); // e.g., "lot7"
     const raw = lotsCfg.images?.[id];
-    const url = pickUrl(typeof raw === 'string' ? { src: raw } : raw, fallbackLot);
+    const url = resolveAsset(pickUrl(typeof raw === 'string' ? { src: raw } : raw, fallbackLot));
     const imgEl = card.querySelector('img.lot-thumb');
     if (imgEl) {
       imgEl.src = url;
@@ -352,7 +379,8 @@
 
   // Best-effort update for social card hero (crawlers generally read server meta only)
   const og = document.querySelector('meta[property="og:image"]');
-  if (og && cfg.backgrounds?.hero) og.setAttribute('content', pickUrl(cfg.backgrounds.hero));
+  if (og && cfg.backgrounds?.hero)
+    og.setAttribute('content', resolveAsset(pickUrl(cfg.backgrounds.hero)));
 
   // Expose debug info for troubleshooting
   window.ImagesDebug = {

@@ -1,7 +1,7 @@
 {
   "owner": {
     "photo": {
-      "src": "/public/brand/owner/Rick-Reza-Profile-Picture.jpg",
+      "src": "public/brand/owner/Rick-Reza-Profile-Picture.jpg",
       "alt": "Rick Reza",
       "caption": "Rick Reza — CEO",
       "loading": "eager",
@@ -10,14 +10,14 @@
   },
   "logos": {
     "header": {
-      "src": "/public/brand/logos/Huntington-Beach-Capital-Partners-Logo.png",
+      "src": "public/brand/logos/Huntington-Beach-Capital-Partners-Logo.png",
       "alt": "Huntington Beach Capital Partners",
       "width": 280,
       "loading": "eager",
       "display": true
     },
     "footer": {
-      "src": "/public/brand/logos/Huntington-Beach-Capital-Partners-Logo.png",
+      "src": "public/brand/logos/Huntington-Beach-Capital-Partners-Logo.png",
       "alt": "Huntington Beach Capital Partners",
       "width": 180,
       "display": true
@@ -26,7 +26,7 @@
   },
   "backgrounds": {
     "hero": {
-      "image": "/public/backgrounds/soft-black-creme--faint-marble-paper-professional-background.png",
+      "image": "public/backgrounds/soft-black-creme--faint-marble-paper-professional-background.png",
       "overlay": "",
       "position": "center center",
       "size": "cover",

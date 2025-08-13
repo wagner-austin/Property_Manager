@@ -46,7 +46,7 @@ Edit `config/images.json`:
 {
   "owner": {
     "photo": {
-      "src": "/public/brand/owner/new-photo.jpg"
+      "src": "public/brand/owner/new-photo.jpg"
     }
   }
 }
@@ -58,7 +58,7 @@ Edit `config/images.json`:
 {
   "logos": {
     "header": {
-      "src": "/public/brand/logos/new-logo.png"
+      "src": "public/brand/logos/new-logo.png"
     }
   }
 }
@@ -70,7 +70,7 @@ Edit `config/images.json`:
 {
   "backgrounds": {
     "hero": {
-      "image": "/public/backgrounds/new-bg.jpg"
+      "image": "public/backgrounds/new-bg.jpg"
     }
   }
 }
@@ -188,7 +188,7 @@ git push origin main
 ## Troubleshooting Checklist
 
 ### Images Not Loading
-- [ ] File path starts with `/public/`
+- [ ] File path starts with `public/` (no leading slash)
 - [ ] File exists in correct directory
 - [ ] File name matches exactly (case-sensitive)
 - [ ] Check browser console for 404 errors

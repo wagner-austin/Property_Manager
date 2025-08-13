@@ -129,7 +129,7 @@ https://your-site.com/?site=lancaster-12&debug=1
 - Check browser console for errors
 
 ### Images Not Loading
-- Verify paths in `config/images.json` start with `/public/`
+- Verify paths in `config/images.json` start with `public/` (no leading slash)
 - Check file names match exactly (case-sensitive)
 - Ensure images are included in deployment package
 - Test with `?debugImages=1` for detailed logging

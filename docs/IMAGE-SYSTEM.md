@@ -14,7 +14,7 @@ The central configuration file that defines all image assets:
 {
   "owner": {
     "photo": {
-      "src": "/public/brand/owner/Rick-Reza-Profile-Picture.jpg",
+      "src": "public/brand/owner/Rick-Reza-Profile-Picture.jpg",
       "alt": "Rick Reza",
       "caption": "Rick Reza — CEO",
       "loading": "eager",
@@ -23,14 +23,14 @@ The central configuration file that defines all image assets:
   },
   "logos": {
     "header": {
-      "src": "/public/brand/logos/Huntington-Beach-Capital-Partners-Logo.png",
+      "src": "public/brand/logos/Huntington-Beach-Capital-Partners-Logo.png",
       "alt": "Huntington Beach Capital Partners",
       "width": 280,
       "loading": "eager",
       "display": true
     },
     "footer": {
-      "src": "/public/brand/logos/Huntington-Beach-Capital-Partners-Logo.png",
+      "src": "public/brand/logos/Huntington-Beach-Capital-Partners-Logo.png",
       "alt": "Huntington Beach Capital Partners",
       "width": 180,
       "display": true
@@ -38,7 +38,7 @@ The central configuration file that defines all image assets:
   },
   "backgrounds": {
     "hero": {
-      "image": "/public/backgrounds/soft-black-creme--faint-marble-paper-professional-background.png",
+      "image": "public/backgrounds/soft-black-creme--faint-marble-paper-professional-background.png",
       "overlay": "",
       "position": "center center",
       "size": "cover",
@@ -94,10 +94,10 @@ Dynamic image loading for property lots:
 ```javascript
 // Lot image configuration in images.json
 "lots": {
-  "defaultImage": "/public/lots/default-lot.jpg",
+  "defaultImage": "public/lots/default-lot.jpg",
   "images": {
-    "lot1": "/public/lots/lot-1.jpg",
-    "lot2": "/public/lots/lot-2.jpg"
+    "lot1": "public/lots/lot-1.jpg",
+    "lot2": "public/lots/lot-2.jpg"
   }
 }
 ```
@@ -196,7 +196,7 @@ header[data-bg='hero'] {
    ```json
    "backgrounds": {
      "hero": {
-       "image": "/public/backgrounds/new-background.jpg",
+       "image": "public/backgrounds/new-background.jpg",
        "enabled": true
      }
    }
@@ -210,7 +210,7 @@ header[data-bg='hero'] {
    ```json
    "owner": {
      "photo": {
-       "src": "/public/brand/owner/new-photo.jpg",
+       "src": "public/brand/owner/new-photo.jpg",
        "caption": "New Caption",
        "display": true
      }
@@ -225,7 +225,7 @@ Create `sites/[site-name]/images.json` to override global settings:
 {
   "backgrounds": {
     "hero": {
-      "image": "/public/backgrounds/site-specific-bg.jpg"
+      "image": "public/backgrounds/site-specific-bg.jpg"
     }
   }
 }
@@ -278,7 +278,7 @@ window.ImagesDebug.test.pickUrl({src: 'test.jpg'});
 ### Common Issues
 
 1. **Images not loading**:
-   - Check file paths (leading slash required)
+   - Check file paths (use relative paths without leading slash)
    - Verify file exists in public folder
    - Check browser console for 404 errors
 
@@ -304,7 +304,7 @@ To migrate from Drive-hosted images to local files:
 
 ## Best Practices
 
-1. **Always use absolute paths** starting with `/public/`
+1. **Always use relative paths** starting with `public/` (no leading slash)
 2. **Maintain consistent naming** with hyphens
 3. **Optimize images** before committing
 4. **Test on multiple devices** for responsive behavior

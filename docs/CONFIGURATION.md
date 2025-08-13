@@ -70,7 +70,7 @@ Controls all image assets including photos, logos, and backgrounds.
 {
   "owner": {
     "photo": {
-      "src": "/public/brand/owner/photo.jpg",
+      "src": "public/brand/owner/photo.jpg",
       "alt": "Owner Name",
       "caption": "Owner Name — Title",
       "loading": "eager",
@@ -86,14 +86,14 @@ Controls all image assets including photos, logos, and backgrounds.
 {
   "logos": {
     "header": {
-      "src": "/public/brand/logos/logo.png",
+      "src": "public/brand/logos/logo.png",
       "alt": "Company Name",
       "width": 280,
       "loading": "eager",
       "display": true
     },
     "footer": {
-      "src": "/public/brand/logos/logo.png",
+      "src": "public/brand/logos/logo.png",
       "alt": "Company Name",
       "width": 180,
       "display": true
@@ -108,7 +108,7 @@ Controls all image assets including photos, logos, and backgrounds.
 {
   "backgrounds": {
     "hero": {
-      "image": "/public/backgrounds/hero-bg.jpg",
+      "image": "public/backgrounds/hero-bg.jpg",
       "overlay": "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5))",
       "position": "center center",
       "size": "cover",
@@ -426,7 +426,7 @@ console.log(window.currentSite);
    {
      "owner": {
        "photo": {
-         "src": "/public/brand/owner/photo.jpg"
+         "src": "public/brand/owner/photo.jpg"
        }
      }
    }

@@ -910,9 +910,7 @@ header[data-bg='hero'] {
 /* About section at bottom */
 .owner--about {
   background-color: #0b2b44; /* fallback */
-  background-image:
-    linear-gradient(135deg, rgba(10, 80, 113, 0.15) 0%, rgba(0, 61, 91, 0.25) 100%),
-    url('/public/backgrounds/soft-black-creme--faint-marble-paper-professional-background.png');
+  background-image: linear-gradient(135deg, rgba(10, 80, 113, 0.15) 0%, rgba(0, 61, 91, 0.25) 100%);
   background-size: cover;
   background-position: center center;
   background-attachment: fixed; /* same fixed effect as header */
