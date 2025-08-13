@@ -2,8 +2,10 @@
 
 ## Prerequisites
 ✅ Drive IDs configured in `sites/[site-name]/data.json`
+✅ Images configured in `config/images.json`
 ✅ Test locally with `make serve`
 ✅ All linting passing with `make lint`
+✅ Images optimized and in `public/` directory
 
 ## Create Deployment Package
 
@@ -14,6 +16,13 @@ make pack
 # Or manually specify output
 make pack OUT=my-site.zip
 ```
+
+### What's Included
+- All HTML, CSS, JS files
+- `public/` directory with images
+- `sites/` directory with configurations
+- `config/` directory
+- No Python scripts or credentials
 
 ## Deployment Options
 
@@ -99,6 +108,8 @@ aws s3 website s3://your-bucket-name --index-document index.html
 
 ### Quick Checks
 - ✅ Homepage loads
+- ✅ Owner photo and logos display
+- ✅ Background images load
 - ✅ PDF viewer opens
 - ✅ Mobile responsive
 - ✅ Contact links work
@@ -116,6 +127,12 @@ https://your-site.com/?site=lancaster-12&debug=1
 - Check Drive permissions (must be "Anyone with link")
 - Verify file IDs in `sites/[site]/data.json`
 - Check browser console for errors
+
+### Images Not Loading
+- Verify paths in `config/images.json` start with `/public/`
+- Check file names match exactly (case-sensitive)
+- Ensure images are included in deployment package
+- Test with `?debugImages=1` for detailed logging
 
 ### Site Not Updating
 - GitHub Pages: Wait 5-10 minutes

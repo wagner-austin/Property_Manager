@@ -213,14 +213,14 @@ python scripts/smart_site_mapper.py \
 - `--sites-dir` - Directory for output files (default: `sites`)
 - `--dry-run` - Preview changes without writing files
 
-## Integration with Make
+## Running the Smart Mapper
 
 ```bash
 # Generate site data
-make map
+python scripts/smart_site_mapper.py
 
-# Or with specific site
-make map SITE=lancaster-12
+# Or with options
+python scripts/smart_site_mapper.py --dry-run
 ```
 
 ## Document Reference Fallback Logic
@@ -273,7 +273,7 @@ class LotDetails(TypedDict, total=False):
 
 Run type checking with:
 ```bash
-make check
+make mypy
 ```
 
 ## Best Practices

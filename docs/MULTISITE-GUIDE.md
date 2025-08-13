@@ -28,10 +28,11 @@ A **reusable, multi-property marketing website** that can showcase unlimited dev
 │   │   └── data.json        # Another property
 │   └── ranchita-20/
 │       └── data.json        # And another...
-└── scripts/                  # Build & test tools
-    ├── get-drive-urls.py    # Generate Drive URL template
-    ├── update-data-js.py    # Auto-fill data.json
-    └── test-multisite.html  # Test page for all sites
+└── scripts/                  # Python automation tools
+    ├── smart_site_mapper.py  # Intelligent file categorization
+    ├── audit_drive_files.py  # Drive inventory generation
+    ├── generate_url_template.py  # Create URL mapping template
+    └── update_site_data.py   # Update site with Drive IDs
 ```
 
 ## 🎯 Quick Start
@@ -49,12 +50,14 @@ make new SITE=palmdale-8
 # Edit the JSON, then access via: ?site=palmdale-8
 ```
 
-### Get Drive URLs
+### Generate Site Data
 ```bash
-python scripts/get-drive-urls.py
-# Creates urls.json template
-# Fill in Drive IDs, then:
-python scripts/update-data-js.py
+# Run smart mapper to generate data.json
+python scripts/smart_site_mapper.py
+
+# Or generate URL template and update manually
+python scripts/generate_url_template.py
+python scripts/update_site_data.py
 ```
 
 ### Deploy
@@ -122,10 +125,11 @@ Works with any PDF URL, not just Drive:
 "file": "https://example.com/docs/plan.pdf"
 ```
 
-### Page Jumps (PDF.js)
-1. Install PDF.js to `vendor/pdfjs/`
-2. Set `"viewer": "pdfjs"` in data.json
-3. Use `"page": 5` to jump to page 5
+### Page Jumps
+Currently uses Google Drive's built-in viewer. For advanced PDF features:
+1. Consider integrating PDF.js (not currently implemented)
+2. Google Drive viewer supports basic page navigation
+3. Direct links work with `#page=N` parameter
 
 ## ✨ Benefits
 

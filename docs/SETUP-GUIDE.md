@@ -13,8 +13,9 @@ LANCASTER 12 LOTS/
 ├── js/                    # JavaScript files
 │   └── app-multisite.js  # Main application logic
 ├── scripts/               # Python utilities
-│   ├── get-drive-ids.py  # Auto-fetch Drive file IDs
-│   └── audit-drive-files.py # Audit & organize files
+│   ├── smart_site_mapper.py  # Intelligent file categorization
+│   ├── audit_drive_files.py  # Audit & organize files
+│   └── update_site_data.py   # Update site with Drive IDs
 └── Google Drive/
     └── Public/            # Public-facing documents
         └── lancaster-12/  # Property-specific PDFs
@@ -29,7 +30,7 @@ LANCASTER 12 LOTS/
 make deps
 
 # Setup Google Drive API access
-make drive-login
+python -m scripts.setup_drive_api
 ```
 
 ### 2. Organize Your Files
@@ -114,7 +115,7 @@ make audit FOLDER_ID=<ROOT_ID> CHILD=Public
 make drive-apply SITE=lancaster-12
 
 # Verbose mode for debugging
-python scripts/get-drive-ids.py --site lancaster-12 --verbose --dry-run
+python scripts/update_site_data.py --site lancaster-12 --verbose --dry-run
 ```
 
 ### Development
@@ -166,7 +167,9 @@ The `smart_site_mapper.py` script uses pattern recognition to categorize files:
 ### Debugging Matches
 ```bash
 # See detailed matching scores
-python scripts/get-drive-ids.py --site lancaster-12 --verbose --dry-run
+python scripts/smart_site_mapper.py --dry-run
+# Or for manual update:
+python scripts/update_site_data.py --site lancaster-12 --verbose --dry-run
 ```
 
 ## 🚢 Deployment to GitHub Pages
@@ -218,7 +221,7 @@ file-mapping.json  # Audit outputs
 ### Files Not Matching
 ```bash
 # Check with verbose mode
-python scripts/get-drive-ids.py --site lancaster-12 --verbose
+python scripts/update_site_data.py --site lancaster-12 --verbose
 
 # Common issues:
 # - File renamed in Drive but not in config
