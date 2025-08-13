@@ -1,51 +1,39 @@
-# Property Manager - Multi-Site Real Estate Platform
+# Property Manager Documentation
 
-Professional property marketing system with Google Drive integration for real estate developments.
+Comprehensive documentation for the Property Manager multi-site real estate platform.
+
+## 📚 Documentation Index
+
+### Getting Started
+- [Setup Guide](SETUP-GUIDE.md) - Initial setup and configuration
+- [Quick Start](#quick-start) - Get up and running quickly
+- [Browser Support](BROWSER-SUPPORT.md) - Compatibility information
+
+### Configuration
+- [Configuration Guide](CONFIGURATION.md) - All configuration options
+- [Smart Mapper](SMART-MAPPER.md) - Intelligent file categorization
+- [Image System](IMAGE-SYSTEM.md) - Image management documentation
+
+### Development
+- [Architecture Overview](ARCHITECTURE.md) - System design and patterns
+- [API Reference](API-REFERENCE.md) - JavaScript and Python APIs
+- [Multi-Site Guide](MULTISITE-GUIDE.md) - Managing multiple properties
+
+### Deployment
+- [Deployment Guide](DEPLOY.md) - Hosting and deployment options
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- Python 3.9+ 
-- Node.js 16+ (for linting)
-- Google Drive API credentials
-
-### Initial Setup
+See [Setup Guide](SETUP-GUIDE.md) for detailed installation instructions.
 
 ```bash
-# Install dependencies
-make setup
-
-# Configure Google Drive API
-python -m scripts.setup_drive_api
-
-# Start local server
-make serve
-# Or with debug logging
-make debug
+# Quick setup
+make deps               # Install dependencies
+make serve              # Start local server
+# Visit: http://localhost:8000/?site=lancaster-12
 ```
 
-## 📁 Project Structure
-
-```
-Property_Manager/
-├── index.html              # Main entry point
-├── sites/                  # Site-specific configurations
-│   └── lancaster-12/       # Example property
-│       └── data.json       # Site configuration & Drive IDs
-├── js/                     # Frontend JavaScript
-│   ├── app-multisite.js    # Main application logic
-│   └── logger.js           # Debug logging system
-├── css/                    # Stylesheets
-│   └── styles.css          # Main styles
-├── scripts/                # Python automation tools
-│   ├── audit_drive_files.py      # Audit Drive folder structure
-│   ├── generate_url_template.py  # Create URL mapping template
-│   ├── update_site_data.py       # Update site with Drive IDs
-│   └── setup_drive_api.py        # Configure Google API access
-├── config/                 # Configuration files
-│   └── settings.json       # Global settings
-└── Makefile               # Build & development commands
-```
+For complete project structure, see [Architecture Overview](ARCHITECTURE.md).
 
 ## 🛠️ Development Workflow
 
@@ -86,16 +74,7 @@ make lint
 
 ## 📦 Deployment
 
-### GitHub Pages (Recommended)
-1. Push to GitHub
-2. Go to Settings → Pages
-3. Source: Deploy from branch → main → / (root)
-4. Site available at: `https://[username].github.io/[repo]/`
-
-### Other Platforms
-- **Netlify**: Drag & drop deployment
-- **Vercel**: Connect GitHub repo
-- **Traditional hosting**: Upload all files via FTP
+See [Deployment Guide](DEPLOY.md) for detailed hosting instructions.
 
 ## 🎨 Features
 
@@ -117,16 +96,18 @@ Edit `sites/[site-name]/data.json`:
 - Document mappings
 
 ### Global Settings
-Edit `config/settings.json`:
+Edit `sites.config.json`:
 - Default site
 - API credentials paths
 - Global folder IDs
 
 ## 🔧 Make Commands
 
+### Development
+
 ```bash
 make help          # Show all commands
-make setup         # Install dependencies
+make deps          # Install dependencies
 make serve         # Start local server
 make debug         # Start with debug logging
 make lint          # Run all linters
@@ -137,6 +118,34 @@ make pack          # Create deployment package
 make clean         # Remove generated files
 ```
 
+## 📚 Additional Resources
+
+### Documentation Files
+
+| Document | Description |
+|----------|-------------|
+| [SETUP-GUIDE.md](SETUP-GUIDE.md) | Complete setup instructions |
+| [CONFIGURATION.md](CONFIGURATION.md) | Configuration reference |
+| [IMAGE-SYSTEM.md](IMAGE-SYSTEM.md) | Image management system |
+| [API-REFERENCE.md](API-REFERENCE.md) | API documentation |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | System architecture |
+| [SMART-MAPPER.md](SMART-MAPPER.md) | Smart mapper documentation |
+| [MULTISITE-GUIDE.md](MULTISITE-GUIDE.md) | Multi-site management |
+| [DEPLOY.md](DEPLOY.md) | Deployment instructions |
+| [BROWSER-SUPPORT.md](BROWSER-SUPPORT.md) | Browser compatibility |
+
+### Key Features
+
+- **Local Image Management** - Owner photos, logos, backgrounds
+- **Google Drive Integration** - Automatic document syncing
+- **Smart File Mapping** - Pattern recognition for categorization
+- **Completeness Tracking** - Document availability monitoring
+- **Multi-Site Support** - Multiple properties from one codebase
+- **Responsive Design** - Mobile-first approach
+- **Beach Theme** - Professional design with custom colors
+- **Debug Mode** - Built-in development tools
+- **Static Deployment** - Works anywhere
+
 ## 📞 Support
 
 **Huntington Beach Capital Partners, Inc.**
@@ -145,4 +154,4 @@ make clean         # Remove generated files
 
 ---
 
-Created by Austin Wagner • Property Marketing Platform
+Property Manager • Created by Austin Wagner
