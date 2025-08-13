@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Lancaster 12 Lots - Premium Development Properties</title>
     <meta
       name="description"
@@ -22,7 +22,11 @@
 
     <link rel="icon" href="favicon.ico" sizes="any" />
 
-    <!-- Preconnect for performance -->
+    <!-- Theme Color for browser UI -->
+    <meta name="theme-color" content="#0a5071" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#003d5b" media="(prefers-color-scheme: dark)" />
+
+    <!-- Preconnect for performance (documents still use Drive) -->
     <link rel="preconnect" href="https://drive.google.com" />
     <link rel="preconnect" href="https://docs.google.com" />
 
@@ -30,38 +34,47 @@
   </head>
   <body>
     <!-- Header -->
-    <header>
+    <header data-bg="hero">
       <div class="container">
-        <div class="hero-content">
-          <h1>Lancaster 12 Lots</h1>
-          <p class="tagline">Premium Development Properties - Ready for Your Vision</p>
-          <div class="hero-bullets">
-            <div class="hero-bullet">Fully Graded</div>
-            <div class="hero-bullet">Entitlements Complete</div>
-            <div class="hero-bullet">Development Ready</div>
+        <div class="brand">
+          <a href="/" class="brand-link" aria-label="Home">
+            <img id="logoHeader" class="brand-logo" alt="" hidden />
+          </a>
+        </div>
+        <div class="hero-with-owner">
+          <div class="owner-profile" id="owner" hidden>
+            <figure class="owner-figure">
+              <img id="ownerPhoto" class="owner-photo" alt="Owner Photo" />
+              <figcaption id="ownerCaption" class="owner-caption"></figcaption>
+            </figure>
           </div>
-          <a href="#lots" class="primary-cta">View All Properties & Documents</a>
+          <div class="hero-content">
+            <h1>Lancaster 12 Lots</h1>
+            <p class="tagline">Premium Development Properties - Ready for Your Vision</p>
+            <div class="hero-bullets">
+              <div class="hero-bullet">Fully Graded</div>
+              <div class="hero-bullet">Entitlements Complete</div>
+              <div class="hero-bullet">Development Ready</div>
+            </div>
+            <div class="hero-actions" role="group" aria-label="Primary actions">
+              <a href="#lots" class="primary-cta">View All Properties &amp; Documents</a>
+              <a
+                href="tel:+17147138618"
+                class="btn-small btn-small-secondary"
+                aria-label="Call Rick Reza at 714-713-8618"
+                >Call Now</a
+              >
+              <a
+                href="mailto:rickreza@yahoo.com"
+                class="btn-small btn-small-secondary"
+                aria-label="Email Rick Reza"
+                >Send Email</a
+              >
+            </div>
+          </div>
         </div>
       </div>
     </header>
-
-    <!-- Contact Bar -->
-    <div class="contact-bar">
-      <div class="contact-grid">
-        <div class="contact-item">
-          <h3>Company</h3>
-          <p id="companyName">Huntington Beach Capital Partners, Inc.</p>
-        </div>
-        <div class="contact-item">
-          <h3>Phone</h3>
-          <p><a href="tel:+17147138618" id="phoneLink">714-713-8618</a></p>
-        </div>
-        <div class="contact-item">
-          <h3>Email</h3>
-          <p><a href="mailto:rickreza@yahoo.com" id="emailLink">rickreza@yahoo.com</a></p>
-        </div>
-      </div>
-    </div>
 
     <!-- 12 Lots Section -->
     <section class="section" id="lots">
@@ -121,9 +134,21 @@
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
+    <!-- About the Owner (bottom) -->
+    <section class="section owner owner--about" id="owner-about">
       <div class="container">
+        <h2>About the Owner</h2>
+        <p>
+          Huntington Beach Capital Partners focuses on premium development opportunities in Southern
+          California. For project details and investment inquiries, please get in touch.
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer--dark">
+      <div class="container footer-inner">
+        <img id="logoFooter" class="footer-logo" alt="" width="150" height="45" hidden />
         <p>
           &copy; 2025 <span id="footerCompany">Huntington Beach Capital Partners, Inc.</span> All
           rights reserved.
@@ -159,6 +184,8 @@
     <script src="js/logger.js" defer></script>
     <!-- Use multi-site app for flexibility -->
     <script src="js/app-multisite.js" defer></script>
+    <!-- Image management system -->
+    <script src="js/images.js" defer></script>
     <!-- Optional: Include legacy data.js for backward compatibility -->
     <!-- <script src="js/data.js" defer></script> -->
   </body>
