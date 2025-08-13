@@ -1,0 +1,55 @@
+{
+  "owner": {
+    "photo": {
+      "src": "/public/brand/owner/Rick-Reza-Profile-Picture.jpg",
+      "alt": "Rick Reza",
+      "caption": "Rick Reza — CEO",
+      "loading": "eager",
+      "display": true
+    }
+  },
+  "logos": {
+    "header": {
+      "src": "/public/brand/logos/Huntington-Beach-Capital-Partners-Logo.png",
+      "alt": "Huntington Beach Capital Partners",
+      "width": 280,
+      "loading": "eager",
+      "display": true
+    },
+    "footer": {
+      "src": "/public/brand/logos/Huntington-Beach-Capital-Partners-Logo.png",
+      "alt": "Huntington Beach Capital Partners",
+      "width": 180,
+      "display": true
+    },
+    "partners": []
+  },
+  "backgrounds": {
+    "hero": {
+      "image": "/public/backgrounds/soft-black-creme--faint-marble-paper-professional-background.png",
+      "overlay": "",
+      "position": "center center",
+      "size": "cover",
+      "attachment": "fixed",
+      "enabled": true
+    },
+    "sections": {
+      "plans": {
+        "imageId": "1IuxvTof9DSIyfK0gchnxnGQ37HzlDTcY",
+        "overlay": "rgba(255,255,255,0.92)",
+        "enabled": false
+      },
+      "documents": {
+        "imageId": "16eeGI8OEsU4sKNN14gMZQgCRFcFQmYeN",
+        "overlay": "rgba(255,255,255,0.95)",
+        "enabled": false
+      }
+    }
+  },
+  "placeholders": {
+    "owner": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23e3f2fd'/%3E%3Ccircle cx='60' cy='45' r='20' fill='%23aaa'/%3E%3Cellipse cx='60' cy='95' rx='35' ry='25' fill='%23aaa'/%3E%3C/svg%3E",
+    "logo": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='60' viewBox='0 0 200 60'%3E%3Crect width='200' height='60' fill='%23e3f2fd'/%3E%3Ctext x='100' y='35' text-anchor='middle' fill='%23999' font-family='sans-serif'%3ELogo%3C/text%3E%3C/svg%3E",
+    "lot": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' viewBox='0 0 400 250'%3E%3Crect width='400' height='250' fill='%23e3f2fd'/%3E%3Ctext x='200' y='125' text-anchor='middle' fill='%23999' font-family='sans-serif' font-size='20'%3ELot Photo%3C/text%3E%3C/svg%3E",
+    "background": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080' viewBox='0 0 1920 1080'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%230a5071'/%3E%3Cstop offset='100%25' style='stop-color:%23003d5b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1920' height='1080' fill='url(%23g)'/%3E%3C/svg%3E"
+  }
+}
