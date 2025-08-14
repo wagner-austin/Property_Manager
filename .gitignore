@@ -81,3 +81,6 @@ logs/
 
 # Server process file
 .server.pid
+
+# Claude IDE settings
+.claude/
