@@ -4,7 +4,7 @@ const globals = require('globals');
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 module.exports = [
-  // Replace old .eslintignore (you can delete that file)
+  // Ignore patterns
   { ignores: ['node_modules/**', 'dist/**', 'build/**', 'deployment.zip'] },
 
   // Core recommended rules
