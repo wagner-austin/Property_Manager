@@ -1,0 +1,151 @@
+@layer tokens {
+  :root {
+    /* ===== Spacing (4px base) ===== */
+    --space-0: 0;
+    --space-1: 0.25rem; /* 4px */
+    --space-2: 0.5rem; /* 8px */
+    --space-3: 0.75rem; /* 12px */
+    --space-4: 1rem; /* 16px */
+    --space-5: 1.25rem; /* 20px */
+    --space-6: 1.5rem; /* 24px */
+    --space-8: 2rem; /* 32px */
+    --space-10: 2.5rem; /* 40px */
+    --space-12: 3rem; /* 48px */
+    --space-16: 4rem; /* 64px */
+    --space-20: 5rem; /* 80px */
+    --space-24: 6rem; /* 96px */
+
+    /* ===== Radii ===== */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-2xl: 24px;
+    --radius-full: 9999px;
+
+    /* ===== Shadows (subtle blue tint on larger shadows) ===== */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08); /* Neutral for small shadows */
+    --shadow-md: 0 8px 24px rgba(0, 61, 91, 0.12); /* Blue tint starts here */
+    --shadow-lg: 0 16px 48px rgba(0, 61, 91, 0.16);
+    --shadow-xl: 0 24px 64px rgba(0, 61, 91, 0.2);
+
+    /* ===== Breakpoints ===== */
+    --bp-sm: 640px;
+    --bp-md: 768px;
+    --bp-lg: 1024px;
+    --bp-xl: 1280px;
+    --bp-2xl: 1536px;
+
+    /* ===== Layout ===== */
+    --container-max: 1280px;
+    --container-pad: var(--space-4);
+
+    /* ===== Beach Theme Palette ===== */
+    /* Brand Colors */
+    --brand-ocean-900: #003d5b; /* Deep ocean */
+    --brand-ocean-700: #0a5071; /* Primary ocean */
+    --brand-ocean-500: #2a7299; /* Light ocean */
+    --brand-sand-200: #f4e4c1; /* Light beach sand */
+    --brand-sand-300: #e8d5a7; /* Warm yellow sand */
+    --brand-sand-400: #d4b896; /* Golden sand */
+
+    /* Surfaces */
+    --surface: #ffffff;
+    --surface-raised: #f8f9fb; /* neutral light, no blue cast */
+    --surface-overlay: rgba(255, 255, 255, 0.95);
+    --background: #f5f7fa;
+
+    /* Text / Ink */
+    --ink: #1a2332;
+    --ink-strong: #0f1419;
+    --ink-muted: #5a6875;
+    --ink-light: #8b96a3;
+    --ink-inverse: #ffffff;
+
+    /* Brand / Accent */
+    --primary: var(--brand-ocean-700);
+    --primary-strong: var(--brand-ocean-900);
+    --primary-dark: var(--brand-ocean-900); /* dark brand tone for footer */
+    --accent: var(--brand-ocean-500);
+    --primary-muted: var(--accent);
+
+    /* Aliases / hovers used by components */
+    --success-hover: color-mix(in oklab, var(--success) 85%, black);
+
+    /* Overlays */
+    --scrim: rgba(0, 61, 91, 0.92); /* Ocean-tinted modal backdrop for beach theme */
+
+    /* Semantics */
+    --success: #059862;
+    --success-muted: #d1fae5;
+    --warning: #d97706;
+    --warning-muted: #fed7aa;
+    --danger: #dc2626;
+    --danger-muted: #fee2e2;
+    --info: #0284c7;
+    --info-muted: #dbeafe;
+
+    /* Borders & focus */
+    --border: #e7edf3;
+    --border-strong: #cbd5e1;
+    --border-muted: #f1f5f9;
+    --ring: var(--accent);
+    --ring-offset: 2px;
+
+    /* Interaction helpers */
+    --accent-hover: color-mix(in oklab, var(--accent) 85%, black);
+    --primary-hover: color-mix(in oklab, var(--primary) 85%, black);
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 350ms ease;
+
+    /* Z-index */
+    --z-base: 0;
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-overlay: 300;
+    --z-modal: 400;
+    --z-popover: 500;
+    --z-tooltip: 600;
+
+    /* Modal backdrop */
+    --scrim: rgba(0, 0, 0, 0.6);
+
+    /* Beach-themed Gradients */
+    --gradient-ocean: linear-gradient(
+      135deg,
+      var(--brand-ocean-900) 0%,
+      var(--brand-ocean-700) 50%,
+      var(--brand-ocean-500) 100%
+    );
+    --gradient-beach: linear-gradient(
+      180deg,
+      var(--brand-ocean-500) 0%,
+      var(--brand-sand-200) 100%
+    );
+    --gradient-sand: linear-gradient(
+      135deg,
+      var(--brand-sand-200) 0%,
+      var(--brand-sand-300) 50%,
+      var(--brand-sand-400) 100%
+    );
+    --gradient-horizon: linear-gradient(
+      180deg,
+      var(--sky-light) 0%,
+      var(--surface) 50%,
+      var(--brand-sand-200) 100%
+    );
+    --gradient-subtle: linear-gradient(180deg, var(--sky-light) 0%, var(--surface) 100%);
+  }
+
+  /* Theming hook for multi-site (optional override from JSON → applyThemeTokens) */
+  [data-theme='beach'] {
+    --primary: #0a5071;
+    --primary-strong: #003d5b;
+    --accent: #2a7299;
+    --surface-raised: #f6f8fb;
+  }
+}

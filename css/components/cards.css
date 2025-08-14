@@ -1,0 +1,335 @@
+/* Card component */
+
+/* Base card */
+.c-card {
+  --card-radius: var(--radius-lg);
+  --card-border: var(--border);
+  --card-shadow: var(--shadow-xs);
+  --card-shadow-hover: var(--shadow-md);
+  --card-bg: var(--surface);
+  --card-padding: var(--space-4);
+
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* Prevent overflow in flex containers */
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+/* Card hover state - only on hover-capable devices */
+@media (hover: hover) {
+  .c-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: var(--accent);
+  }
+}
+
+/* Keyboard focus states */
+.c-card:focus-visible,
+.c-card:focus-within {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Card as link */
+a.c-card {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Card media/image section */
+.c-card__media {
+  aspect-ratio: var(--card-media-ratio, 16 / 10);
+  background: var(--surface-raised);
+  border-bottom: 1px solid var(--card-border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Media ratio variants */
+.c-card--ratio-1\:1 {
+  --card-media-ratio: 1 / 1;
+}
+.c-card--ratio-4\:3 {
+  --card-media-ratio: 4 / 3;
+}
+.c-card--ratio-16\:9 {
+  --card-media-ratio: 16 / 9;
+}
+.c-card--ratio-21\:9 {
+  --card-media-ratio: 21 / 9;
+}
+
+/* Fallback for browsers without aspect-ratio */
+@supports not (aspect-ratio: 1) {
+  .c-card__media {
+    position: relative;
+    height: 0;
+    padding-top: var(--card-media-fallback, 62.5%); /* 16:10 default */
+  }
+
+  .c-card__media img {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .c-card--ratio-1\:1 {
+    --card-media-fallback: 100%;
+  }
+  .c-card--ratio-4\:3 {
+    --card-media-fallback: 75%;
+  }
+  .c-card--ratio-16\:9 {
+    --card-media-fallback: 56.25%;
+  }
+  .c-card--ratio-21\:9 {
+    --card-media-fallback: 42.857%;
+  }
+}
+
+/* Card header */
+.c-card__header {
+  padding: var(--card-padding);
+  border-bottom: 1px solid var(--card-border);
+  background: var(--surface-raised);
+}
+
+.c-card__title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.c-card__meta {
+  color: var(--ink-muted);
+  font-size: var(--text-sm);
+  margin-top: var(--space-1);
+}
+
+/* Card body */
+.c-card__body {
+  padding: var(--card-padding);
+  flex: 1 1 auto;
+}
+
+.c-card__body p {
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.c-card__body p + p {
+  margin-top: var(--space-3);
+}
+
+/* Card features list */
+.c-card__features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.c-card__features li {
+  padding: var(--space-2) 0;
+  color: var(--ink);
+  font-size: var(--text-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.c-card__features li::before {
+  content: '•';
+  color: var(--success);
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* Card actions */
+.c-card__actions {
+  padding: var(--card-padding);
+  padding-top: 0;
+  margin-top: auto;
+  display: flex;
+  gap: var(--space-3);
+}
+
+.c-card__actions .c-btn {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Card icon (for doc/plan variants) */
+.c-card__icon {
+  color: var(--accent);
+  font-size: 1.5rem;
+  margin-bottom: var(--space-2);
+}
+
+/* Card variants */
+
+/* Lot variant */
+.c-card[data-variant='lot'] .c-card__title {
+  color: var(--primary);
+}
+
+.c-card[data-variant='lot'] .c-card__header {
+  background: var(--surface-raised);
+}
+
+/* Plan variant */
+.c-card[data-variant='plan'] {
+  text-align: center;
+  min-height: 320px;
+}
+
+.c-card[data-variant='plan'] .c-card__media {
+  aspect-ratio: 4 / 3; /* Taller aspect ratio for bigger image presence */
+  background: var(--surface-raised);
+  border-bottom: none; /* Remove border for seamless look */
+}
+
+.c-card[data-variant='plan'] .c-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Fill entire space */
+  padding: 0; /* No padding - fill entire top */
+}
+
+.c-card[data-variant='plan'] .c-card__icon {
+  width: 60px;
+  height: 60px;
+  background: var(--surface-raised);
+  border-radius: 50%;
+  margin: 0 auto var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.c-card[data-variant='plan'] .c-card__body {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-2) var(--space-3); /* Reduced padding */
+}
+
+.c-card[data-variant='plan'] .c-card__actions {
+  margin-top: auto;
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+/* Plan card features - no bullets, centered, bold */
+.c-card[data-variant='plan'] .c-card__features {
+  text-align: center;
+}
+
+.c-card[data-variant='plan'] .c-card__features li {
+  padding: var(--space-1) 0;
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  justify-content: center;
+}
+
+.c-card[data-variant='plan'] .c-card__features li::before {
+  display: none; /* Remove bullet points */
+}
+
+/* Document variant */
+.c-card[data-variant='doc'] {
+  min-height: 220px;
+  padding-bottom: calc(var(--card-padding) + 44px + var(--space-4));
+  position: relative;
+}
+
+.c-card[data-variant='doc'] .c-card__actions {
+  position: absolute;
+  left: var(--card-padding);
+  right: var(--card-padding);
+  bottom: var(--card-padding);
+  padding: 0;
+}
+
+/* Compact variant */
+.c-card--compact {
+  --card-padding: var(--space-3);
+}
+
+/* Flat variant (no shadow/border) */
+.c-card--flat {
+  --card-shadow: none;
+  --card-border: transparent;
+}
+
+.c-card--flat:hover {
+  --card-shadow-hover: var(--shadow-sm);
+}
+
+/* Raised variant */
+.c-card--raised {
+  --card-shadow: var(--shadow-md);
+  --card-bg: var(--surface-raised);
+}
+
+.c-card--raised:hover {
+  --card-shadow-hover: var(--shadow-lg);
+}
+
+/* Clickable variant */
+.c-card--clickable {
+  cursor: pointer;
+}
+
+.c-card--clickable:active {
+  transform: translateY(0);
+}
+
+/* Card footer */
+.c-card__footer {
+  padding: var(--card-padding);
+  border-top: 1px solid var(--card-border);
+  background: var(--surface-raised);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .c-card {
+    transition: none;
+  }
+
+  .c-card:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  .c-card {
+    border-color: ButtonText;
+  }
+
+  .c-card:focus-visible {
+    outline-color: Highlight;
+  }
+}

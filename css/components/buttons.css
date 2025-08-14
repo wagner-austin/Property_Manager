@@ -1,0 +1,268 @@
+/* Button component */
+
+/* Base button */
+.c-btn {
+  /* Scoped properties */
+  --btn-radius: var(--radius-md);
+  --btn-pad-y: 0.75rem;
+  --btn-pad-x: 1.25rem;
+  --btn-font-size: var(--text-base);
+  --btn-font-weight: var(--font-semibold);
+  --btn-transition: var(--transition-base);
+
+  /* Base styles */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  border-radius: var(--btn-radius);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  font-family: inherit;
+  line-height: 1.2;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  min-height: 44px; /* Accessibility: touch target */
+  transition:
+    transform var(--btn-transition),
+    box-shadow var(--btn-transition),
+    background-color var(--btn-transition),
+    border-color var(--btn-transition),
+    color var(--btn-transition);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Button interaction states - only when not disabled */
+.c-btn:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.c-btn:not(:disabled):active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.c-btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Primary variant */
+.c-btn--primary {
+  background-color: var(--accent);
+  color: var(--ink-inverse);
+  border-color: var(--accent);
+}
+
+.c-btn--primary:hover {
+  background-color: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+/* Secondary variant */
+.c-btn--secondary {
+  background-color: var(--surface);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.c-btn--secondary:hover {
+  background-color: var(--accent);
+  color: var(--ink-inverse);
+  border-color: var(--accent);
+}
+
+/* Ghost variant */
+.c-btn--ghost {
+  background-color: transparent;
+  color: var(--accent);
+  border-color: transparent;
+}
+
+.c-btn--ghost:hover {
+  background-color: rgba(0, 0, 0, 0.06); /* fallback */
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+@supports (color: color-mix(in srgb, black 10%, white)) {
+  .c-btn--ghost:hover {
+    background-color: color-mix(in srgb, var(--accent) 12%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 20%, transparent);
+  }
+}
+
+/* Success variant */
+.c-btn--success {
+  background-color: var(--success);
+  color: var(--ink-inverse);
+  border-color: var(--success);
+}
+
+.c-btn--success:hover {
+  background-color: var(--success-hover);
+  border-color: var(--success-hover);
+}
+
+/* Inverse variant (for dark backgrounds) */
+.c-btn--inverse {
+  background-color: var(--ink-inverse);
+  color: var(--primary);
+  border-color: var(--ink-inverse);
+}
+
+.c-btn--inverse:hover {
+  background-color: var(--surface-raised);
+  border-color: var(--surface-raised);
+}
+
+/* Danger variant */
+.c-btn--danger {
+  background-color: var(--danger);
+  color: var(--ink-inverse);
+  border-color: var(--danger);
+}
+
+.c-btn--danger:hover {
+  background-color: #a01919; /* fallback */
+  border-color: #a01919;
+}
+
+@supports (color: color-mix(in srgb, black 10%, white)) {
+  .c-btn--danger:hover {
+    background-color: color-mix(in srgb, var(--danger) 85%, black);
+    border-color: color-mix(in srgb, var(--danger) 85%, black);
+  }
+}
+
+/* Size variants */
+.c-btn--sm {
+  --btn-pad-y: 0.5rem;
+  --btn-pad-x: 0.75rem;
+  --btn-font-size: var(--text-sm);
+  --btn-radius: var(--radius-sm);
+  min-height: 36px;
+}
+
+.c-btn--lg {
+  --btn-pad-y: 1rem;
+  --btn-pad-x: 1.75rem;
+  --btn-font-size: var(--text-lg);
+  --btn-radius: var(--radius-lg);
+  min-height: 52px;
+}
+
+/* Full width variant */
+.c-btn--full {
+  width: 100%;
+}
+
+/* Icon-only variant */
+.c-btn--icon {
+  --btn-pad-x: var(--btn-pad-y);
+  min-width: 44px;
+}
+
+/* Disabled state */
+.c-btn:disabled,
+.c-btn[disabled],
+.c-btn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Loading state - hide content but show spinner */
+.c-btn--loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.c-btn--loading > * {
+  opacity: 0; /* hide label/content */
+}
+
+.c-btn--loading::after {
+  content: '';
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  top: 50%;
+  left: 50%;
+  margin: -0.5em 0 0 -0.5em;
+  border: 2px solid var(--btn-spinner-color, currentColor);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Button group */
+.c-btn-group {
+  display: inline-flex;
+  gap: var(--space-2);
+}
+
+.c-btn-group--attached {
+  gap: 0;
+}
+
+.c-btn-group--attached .c-btn {
+  border-radius: 0;
+}
+
+.c-btn-group--attached .c-btn:first-child {
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+.c-btn-group--attached .c-btn:last-child {
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.c-btn-group--attached .c-btn + .c-btn {
+  border-left-width: 0; /* no double border */
+}
+
+/* Additional button variants */
+.c-btn--pill {
+  --btn-radius: var(--radius-full);
+}
+
+.c-btn--link {
+  background: transparent;
+  border-color: transparent;
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* Accessibility: Reduced motion & forced colors */
+@media (prefers-reduced-motion: reduce) {
+  .c-btn {
+    transition: none;
+  }
+
+  .c-btn:hover,
+  .c-btn:active {
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .c-btn {
+    border-color: ButtonText;
+  }
+
+  .c-btn:focus-visible {
+    outline-color: Highlight;
+  }
+}

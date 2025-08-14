@@ -1,0 +1,112 @@
+/* Section layouts */
+
+/* Base section */
+.section {
+  padding: 40px 0;
+}
+
+.section-header,
+.section__header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section-title,
+.section__title {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.section-subtitle,
+.section__subtitle {
+  font-size: 1.2rem;
+  color: var(--ink-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Plans Section */
+.plans-section {
+  background: var(--surface-raised);
+  background: var(--gradient-subtle); /* enhanced */
+  position: relative;
+}
+
+/* Desert Crest logo in plans section */
+.plans-section .desert-crest-logo {
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  width: 300px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.plans-section .desert-crest-logo img {
+  width: 100%;
+  height: auto;
+}
+
+/* Download Section */
+.download-section {
+  background: var(--brand-sand-300); /* fallback */
+  background: var(--gradient-sand); /* enhanced */
+  color: var(--ink);
+  padding: 60px 0;
+  text-align: center;
+}
+
+.download-content h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--primary-dark);
+}
+
+.download-content p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: var(--ink);
+}
+
+/* About section at bottom */
+.owner--about {
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  text-align: center;
+  padding: 60px 0;
+  color: #ffffff;
+}
+
+.owner--about h2 {
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.owner--about p {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section {
+    padding: 30px 0;
+  }
+
+  .section-title,
+  .section__title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .owner--about {
+    background-attachment: scroll;
+  }
+}

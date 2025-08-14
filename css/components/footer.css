@@ -1,0 +1,148 @@
+/* Footer component */
+
+.c-footer {
+  --footer-pad: var(--space-12);
+  --footer-bg: var(--surface);
+  --footer-text: var(--ink);
+
+  padding-block: var(--footer-pad);
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  text-align: center;
+}
+
+.c-footer__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.c-footer__logo {
+  width: 230px;
+  height: auto;
+  margin-bottom: var(--space-2);
+}
+
+.c-footer__text {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.c-footer__text + .c-footer__text {
+  margin-top: var(--space-2);
+}
+
+.c-footer__link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  transition: opacity var(--transition-fast);
+}
+
+.c-footer__link:hover,
+.c-footer__link:focus-visible {
+  opacity: 0.8;
+}
+
+/* Footer variants */
+.c-footer--dark {
+  --footer-text: var(--ink-inverse);
+  position: relative;
+  background-image: url('../../public/backgrounds/20250814_0641_Sapphire Backdrop_simple_compose_01k2md0jxve2v8st996x6s4edc.png');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Dark overlay to make sapphire less vibrant */
+.c-footer--dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
+.c-footer--dark .c-footer__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.c-footer--dark .c-footer__text {
+  color: var(--ink-inverse) !important;
+  opacity: 1;
+}
+
+.c-footer--dark .c-footer__logo {
+  filter: brightness(0) invert(1);
+  position: relative;
+  z-index: 1;
+}
+
+.c-footer--brand {
+  --footer-bg: var(--primary);
+  --footer-text: var(--ink-inverse);
+}
+
+.c-footer--accent {
+  --footer-bg: var(--accent);
+  --footer-text: var(--ink-inverse);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .c-footer {
+    /* Account for mobile contact bar */
+    padding-bottom: calc(var(--footer-pad) + 80px);
+  }
+}
+
+/* Mobile Contact Bar Component */
+.c-mobile-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-sticky, 100);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: var(--space-2) 0;
+  box-shadow: var(--shadow-lg);
+}
+
+.c-mobile-bar__buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+}
+
+.c-mobile-bar__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  text-decoration: none;
+  font-weight: var(--font-semibold);
+}
+
+/* Let c-btn handle colors - removed color overrides */
+
+/* Show on mobile */
+@media (max-width: 768px) {
+  .c-mobile-bar {
+    display: block;
+  }
+}
+
+/* Print styles */
+@media print {
+  .c-mobile-bar {
+    display: none;
+  }
+}

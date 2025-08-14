@@ -1,0 +1,57 @@
+/* Hero bullets component */
+
+.hero-bullets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-2) 0 var(--space-3) 0;
+  align-items: center;
+}
+
+.hero-bullet {
+  display: flex;
+  align-items: center;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: rgba(255, 255, 255, 0.95);
+  white-space: nowrap;
+}
+
+.hero-bullet::before {
+  content: '✓';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  margin-right: var(--space-2);
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .hero-bullets {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  header[data-bg='hero'] .hero-bullets {
+    align-items: center;
+  }
+}
+
+/* High contrast support */
+@media (forced-colors: active) {
+  .hero-bullet::before {
+    background: ButtonText;
+    color: ButtonFace;
+    border-color: ButtonText;
+  }
+}

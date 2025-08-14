@@ -1,0 +1,163 @@
+/* Grid system */
+.grid {
+  display: grid;
+  gap: var(--grid-gap, var(--space-4));
+}
+
+/* Auto-responsive card grid */
+.grid--cards {
+  /* Fallback for broader support */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+/* Enhanced behavior where supported */
+@supports (width: min(100%, 300px)) {
+  .grid--cards {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--card-min-width, 300px)), 1fr));
+  }
+}
+
+/* Fixed column grids */
+.grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.grid--5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+.grid--6 {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+/* Asymmetric grids */
+.grid--sidebar-left {
+  grid-template-columns: minmax(250px, 1fr) 3fr;
+}
+.grid--sidebar-right {
+  grid-template-columns: 3fr minmax(250px, 1fr);
+}
+.grid--split {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Gap variants */
+.grid--gap-0 {
+  gap: 0;
+}
+.grid--gap-1 {
+  gap: var(--space-1);
+}
+.grid--gap-2 {
+  gap: var(--space-2);
+}
+.grid--gap-3 {
+  gap: var(--space-3);
+}
+.grid--gap-4 {
+  gap: var(--space-4);
+}
+.grid--gap-6 {
+  gap: var(--space-6);
+}
+.grid--gap-8 {
+  gap: var(--space-8);
+}
+.grid--gap-12 {
+  gap: var(--space-12);
+}
+
+/* Packing */
+.grid--dense {
+  grid-auto-flow: dense;
+}
+
+/* Alignment utilities */
+.grid--center {
+  place-items: center;
+}
+.grid--start {
+  place-items: start;
+}
+.grid--stretch {
+  place-items: stretch;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+  /* Stack on mobile */
+  .grid--2,
+  .grid--3,
+  .grid--4,
+  .grid--5,
+  .grid--6,
+  .grid--sidebar-left,
+  .grid--sidebar-right,
+  .grid--split {
+    grid-template-columns: 1fr;
+  }
+
+  /* Classes that *become* multi-col at md+ */
+  .grid--md\:2,
+  .grid--md\:3,
+  .grid--md\:4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 768px) {
+  .grid--md\:2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid--md\:3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid--md\:4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid--lg\:2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid--lg\:3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid--lg\:4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .grid--lg\:5 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .grid--lg\:6 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* Grid item utilities */
+.col-span-2 {
+  grid-column: span 2;
+}
+.col-span-3 {
+  grid-column: span 3;
+}
+.col-span-4 {
+  grid-column: span 4;
+}
+.col-span-full {
+  grid-column: 1 / -1;
+}
+
+.row-span-2 {
+  grid-row: span 2;
+}
+.row-span-3 {
+  grid-row: span 3;
+}
+.row-span-4 {
+  grid-row: span 4;
+}
