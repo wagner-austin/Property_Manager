@@ -49,7 +49,12 @@
     font-size: var(--text-base);
     line-height: var(--leading-relaxed);
     color: var(--ink);
-    background: var(--surface); /* Use white surface, not gray background */
+    background-image: url('../../public/backgrounds/soft-yellow-creme--faint-marbe-paper-professional-background.png');
+    background-size: contain;
+    background-attachment: fixed;
+    background-position: center top;
+    background-repeat: repeat;
+    background-color: #fdfcf8; /* Cream fallback */
   }
 
   /* Headings */
