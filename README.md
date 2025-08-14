@@ -49,8 +49,11 @@ Property_Manager/
 │   ├── app-multisite.js # Multi-site application logic
 │   ├── images.js       # Image loading system
 │   └── logger.js       # Debug logging
-├── css/                # Styles
-│   └── styles.css      # Beach-themed styles
+├── css/                # Modular styles
+│   ├── main.css        # Main stylesheet entry point
+│   ├── base/           # Base styles (reset, typography, variables)
+│   ├── components/     # Component styles (buttons, cards, modal, etc.)
+│   └── layout/         # Layout styles (grid, sections, containers)
 ├── docs/               # Documentation
 └── Makefile            # Build commands
 ```
