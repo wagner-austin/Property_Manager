@@ -62,7 +62,7 @@ test:
 	@echo "Checking required files..."
 	@test -f index.html || (echo "❌ Missing: index.html" && exit 1)
 	@test -d css || (echo "❌ Missing: css/" && exit 1)
-	@test -f css/styles.css || (echo "❌ Missing: css/styles.css" && exit 1)
+	@test -f css/main.css || (echo "❌ Missing: css/main.css" && exit 1)
 	@test -d js || (echo "❌ Missing: js/" && exit 1)
 	@test -f js/app-multisite.js || (echo "❌ Missing: js/app-multisite.js" && exit 1)
 	@test -d sites/lancaster-12 || (echo "❌ Missing: sites/lancaster-12/" && exit 1)
