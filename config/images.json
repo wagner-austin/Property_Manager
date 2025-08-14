@@ -3,7 +3,7 @@
     "photo": {
       "src": "public/brand/owner/Rick-Reza-Profile-Picture.jpg",
       "alt": "Rick Reza",
-      "caption": "Rick Reza — CEO",
+      "caption": "Rick Reza — President",
       "loading": "eager",
       "display": true
     }
