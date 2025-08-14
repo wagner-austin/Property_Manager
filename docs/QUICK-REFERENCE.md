@@ -36,7 +36,7 @@ make pack
 | Logos | `public/brand/logos/` |
 | Backgrounds | `public/backgrounds/` |
 | JavaScript | `js/` |
-| Styles | `css/styles.css` |
+| Styles | `css/main.css` |
 
 ## Configuration Quick Reference
 
