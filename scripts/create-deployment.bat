@@ -13,9 +13,8 @@ echo ✅ Deployment package created: deployment.zip
 echo.
 echo This zip contains:
 echo   - index.html
-echo   - css/styles.css
-echo   - js/app.js
-echo   - js/data.js
+echo   - css/ (all stylesheets)
+echo   - js/ (all JavaScript files)
 echo.
 echo Upload this zip to your hosting service!
 pause
