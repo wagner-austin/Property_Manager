@@ -86,19 +86,7 @@
     if (!conf) return placeholder || '';
     if (typeof conf === 'string') return conf;
 
-    // Size hints are no longer needed with local images
-    // Keeping for backward compatibility logging only
-    const rawSize = conf.driveSize ?? conf.pixelSize ?? 0;
-    const sizeNum = Number(rawSize) || 0;
-
-    if (sizeNum) {
-      logger.debug('Size hint (ignored for local files)', {
-        size: sizeNum,
-        for: conf.alt || conf.caption || 'image',
-      });
-    }
-
-    // Prefer IDs if present (for backward compatibility with Drive)
+    // Prefer IDs if present (for Drive files)
     if (conf.srcId) return toDrive(conf.srcId);
     if (conf.imageId) return toDrive(conf.imageId);
 
@@ -326,56 +314,13 @@
   if (aboutSection && cfg.backgrounds?.hero) {
     const aboutBgUrl = resolveAsset(pickUrl(cfg.backgrounds.hero, cfg.placeholders?.background));
     if (aboutBgUrl && cfg.backgrounds.hero.enabled) {
-      // Apply the background image directly, combining with the existing gradient
-      const gradient =
-        'linear-gradient(135deg, rgba(10, 80, 113, 0.15) 0%, rgba(0, 61, 91, 0.25) 100%)';
-      aboutSection.style.backgroundImage = `${gradient}, url("${aboutBgUrl}")`;
+      // Apply the background image directly
+      aboutSection.style.backgroundImage = `url("${aboutBgUrl}")`;
       logger.debug('About section background applied:', { url: aboutBgUrl });
     }
   }
 
-  // --- Lot photos ---
-  const lotsCfg = cfg.lots || {};
-  const fallbackLot = pickUrl(
-    { src: lotsCfg.defaultImage, srcId: lotsCfg.defaultImageId },
-    cfg.placeholders?.lot
-  );
-
-  // Function to hydrate a single lot card
-  const hydrateLotCard = (card) => {
-    const id = card.getAttribute('data-lot-id'); // e.g., "lot7"
-    const raw = lotsCfg.images?.[id];
-    const url = resolveAsset(pickUrl(typeof raw === 'string' ? { src: raw } : raw, fallbackLot));
-    const imgEl = card.querySelector('img.lot-thumb');
-    if (imgEl) {
-      imgEl.src = url;
-      imgEl.alt = imgEl.alt || `Photo of ${id}`;
-      imgEl.loading = 'lazy';
-      imgEl.decoding = 'async';
-    } else {
-      const thumb = card.querySelector('.lot-thumb') || card;
-      thumb.classList.add('has-image');
-      thumb.style.backgroundImage = `url("${url}")`;
-    }
-  };
-
-  // Initial pass for existing cards
-  document.querySelectorAll('[data-lot-id]').forEach(hydrateLotCard);
-
-  // Watch for dynamically added lot cards
-  new MutationObserver((muts) => {
-    for (const m of muts)
-      for (const n of m.addedNodes) {
-        if (!(n instanceof Element)) continue;
-        if (n.matches?.('[data-lot-id]')) hydrateLotCard(n);
-        n.querySelectorAll?.('[data-lot-id]').forEach(hydrateLotCard);
-      }
-  }).observe(document.body, { childList: true, subtree: true });
-
-  // Listen for custom event from renderer
-  window.addEventListener('lots:rendered', () =>
-    document.querySelectorAll('[data-lot-id]').forEach(hydrateLotCard)
-  );
+  // Lot photos functionality removed - lots now handle their own images directly in app-multisite.js
 
   // Best-effort update for social card hero (crawlers generally read server meta only)
   const og = document.querySelector('meta[property="og:image"]');
