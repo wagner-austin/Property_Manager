@@ -58,42 +58,7 @@ async function loadSiteData() {
     }
   } catch {
     window.Log && Log.timeEnd('fetch-site-data');
-    window.Log && Log.log(`No data.json found for ${slug}, trying legacy format...`);
-  }
-
-  // Fallback to legacy window.DATA if available
-  if (window.DATA) {
-    window.Log && Log.log('Using legacy window.DATA format');
-    const cfg = normalizeConfig(window.DATA);
-    window.Log &&
-      Log.event('site.loaded', {
-        slug,
-        source: 'legacy',
-        counts: {
-          docs: (cfg.projectDocs || []).length,
-          plans: (cfg.plans || []).length,
-          lots: (cfg.lots || []).length,
-        },
-      });
-    return cfg;
-  }
-
-  // Try loading data.js script
-  try {
-    await new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = `sites/${slug}/data.js`;
-      script.defer = true;
-      script.onload = resolve;
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
-
-    if (window.DATA) {
-      return normalizeConfig(window.DATA);
-    }
-  } catch (e) {
-    window.Log && Log.error(`Failed to load data.js for ${slug}`, e);
+    window.Log && Log.log(`No data.json found for ${slug}`);
   }
 
   window.Log && Log.event('site.load.failed', { slug });
@@ -160,22 +125,52 @@ function normalizeConfig(cfg) {
   return norm;
 }
 
-// --- Preview URL generators ---
-function drivePreviewUrl(fileIdOrUrl, page) {
-  const id = extractDriveId(fileIdOrUrl);
-  if (!id) return null;
-
-  // Note: Drive preview ignores page parameter
-  const pageHash = page ? `#page=${page}` : '';
-  return `https://drive.google.com/file/d/${id}/preview${pageHash}`;
+// --- PDF helpers ------------------------------------------------------------
+function isGoogleDrive(urlOrId) {
+  if (!urlOrId) return false;
+  if (/^[\w-]{25,}$/.test(urlOrId)) return true; // looks like a Drive file id
+  try {
+    const u = new URL(urlOrId, location.href);
+    return u.hostname.includes('drive.google.com');
+  } catch {
+    return false;
+  }
 }
 
-function driveViewUrl(fileIdOrUrl, page) {
+function localPdfUrl(urlOrPath) {
+  // Return a same-origin absolute URL if it's local, else null
+  if (!urlOrPath) return null;
+  try {
+    const u = new URL(urlOrPath, location.href);
+    return u.origin === location.origin ? u.href : null;
+  } catch {
+    // relative path -> assume local
+    return new URL(urlOrPath, location.href).href;
+  }
+}
+
+function _driveViewUrl(idOrUrl) {
+  // Fallback to full Drive tab (shows all controls); don't iframe it.
+  let id = idOrUrl;
+  try {
+    const u = new URL(idOrUrl, location.href);
+    const m = u.pathname.match(/\/d\/([^/]+)/);
+    if (m) id = m[1];
+  } catch {
+    // Invalid URL, treat as ID
+  }
+  if (/^[\w-]{25,}$/.test(id)) {
+    return `https://drive.google.com/file/d/${id}/view`;
+  }
+  return null;
+}
+
+function drivePreviewUrl(fileIdOrUrl, _page) {
   const id = extractDriveId(fileIdOrUrl);
   if (!id) return null;
 
-  const pageHash = page ? `#page=${page}` : '';
-  return `https://drive.google.com/file/d/${id}/view${pageHash}`;
+  // Use preview with rm=minimal for cleaner embed
+  return `https://drive.google.com/file/d/${id}/preview`;
 }
 
 function directPdfUrl(id, page) {
@@ -288,51 +283,13 @@ function updatePageContent(site) {
       });
     }
   }
-
-  // Update Drive folder link - prefer Public over generic folder
-  const folderId =
-    site.drive?.publicFolderId ||
-    site.drive?.folderId ||
-    site.contact?.publicFolderId ||
-    site.contact?.folderId;
-
-  if (folderId) {
-    const folderLink = document.getElementById('driveFolder');
-    if (folderLink) {
-      folderLink.href = `https://drive.google.com/drive/folders/${folderId}`;
-      // harden external link
-      folderLink.target = '_blank';
-      folderLink.rel = 'noopener noreferrer';
-
-      // Add click tracking (avoid duplicates)
-      if (!folderLink.dataset.logHooked) {
-        folderLink.addEventListener('click', () => {
-          window.Log && Log.event('drive.folder.clicked', { folderId });
-        });
-        // Track middle-click / new-tab
-        folderLink.addEventListener('auxclick', (e) => {
-          if (e.button === 1) {
-            window.Log && Log.event('drive.folder.auxclick', { folderId, button: e.button });
-          }
-        });
-        folderLink.dataset.logHooked = '1';
-      }
-
-      window.Log && Log.event('drive.folder.linked', { folderId });
-    }
-  } else {
-    // graceful fallback: keep users on-page instead of a dead link
-    const folderLink = document.getElementById('driveFolder');
-    if (folderLink) {
-      folderLink.href = '#documents';
-      window.Log && Log.log('No folder ID configured, linking to documents section');
-    }
-  }
 }
 
 // --- PDF Modal ---
-let lastFocusedElement = null;
-let modalKeyHandler = null;
+let _lastFocusedElement = null;
+let _modalKeyHandler = null;
+let _modalFocusTrap = null;
+let _modalBackdropHandler = null;
 let __pdfObsSetup = false;
 let __pdfSrcObserver = null;
 
@@ -428,104 +385,298 @@ function setupPDFObservability() {
   });
 }
 
-function openPDF(site, fileRef, title, page) {
-  // Get preview URL first - works with Drive IDs or external URLs
-  let previewUrl = getPreviewUrl(site, fileRef, page);
-  const viewUrl = driveViewUrl(fileRef, page) || (typeof fileRef === 'string' ? fileRef : null);
+// --- Modal open/close with clean history -----------------
+let pdfModalOpen = false;
 
-  if (!previewUrl) {
-    window.Log && Log.event('pdf.open.failed', { title, reason: 'no_url' });
-    alert('Document not yet available. Please check back later.');
+function openPDF(site, fileRef, title, page) {
+  // For compatibility with existing code that passes site as first param
+  let fileIdOrUrl = fileRef;
+  let docTitle = title || 'Floor Plan';
+
+  // Check if this is a Google Drive file
+  const isDrive = isGoogleDrive(fileIdOrUrl);
+
+  if (isDrive) {
+    // Use Drive preview URL for iframe embedding
+    const driveUrl = drivePreviewUrl(fileIdOrUrl, page);
+    if (!driveUrl) {
+      alert('Document not yet available. Please check back later.');
+      return;
+    }
+
+    // Build modal lazily
+    const modal = document.querySelector('.c-modal.pdf') || buildPdfModal();
+    const frame = modal.querySelector('.c-modal__frame');
+    const headerTitle = modal.querySelector('.c-modal__title');
+
+    headerTitle.textContent = docTitle;
+    frame.src = driveUrl;
+
+    // Open modal
+    modal.setAttribute('open', '');
+    document.body.classList.add('modal-open');
+    pdfModalOpen = true;
+    frame.focus();
     return;
   }
 
-  // Only coerce to /preview when explicitly using the Drive viewer
-  const viewer = (site.viewer || 'drive').toLowerCase();
-  if (viewer === 'drive' && previewUrl && !/\/preview(?:$|[#?])/.test(previewUrl)) {
-    const id = extractDriveId(fileRef);
-    if (id) previewUrl = drivePreviewUrl(fileRef, page);
+  // For local files, check if we have a valid URL
+  const localUrl = localPdfUrl(fileIdOrUrl);
+
+  if (!localUrl) {
+    // Fallback to getPreviewUrl for compatibility
+    const previewUrl = getPreviewUrl(site, fileRef, page);
+    if (!previewUrl) {
+      window.Log && Log.event('pdf.open.failed', { title: docTitle, reason: 'no_url' });
+      alert('Document not yet available. Please check back later.');
+      return;
+    }
+    fileIdOrUrl = previewUrl;
   }
 
-  // Log PDF open event
-  window.Log &&
-    Log.event('pdf.open', {
-      title,
-      fileRef: typeof fileRef === 'string' ? fileRef : 'object',
-      page: page || null,
-    });
+  // Build modal lazily
+  const modal = document.querySelector('.c-modal.pdf') || buildPdfModal();
+  const frame = modal.querySelector('.c-modal__frame');
+  const headerTitle = modal.querySelector('.c-modal__title');
 
-  lastFocusedElement = document.activeElement;
+  const finalUrl = localUrl || fileIdOrUrl;
 
-  const modal = document.getElementById('pdfModal');
-  const frame = document.getElementById('pdfFrame');
-  const titleEl = document.getElementById('pdfTitle');
-  const newTabLink = document.getElementById('pdfNewTab');
-  const closeBtn = document.getElementById('closeModal');
+  headerTitle.textContent = docTitle;
+  // Use native viewer for local PDFs, fit to width
+  // view=FitH is the standard parameter for horizontal fit
+  frame.src = `${finalUrl}#view=FitH`;
 
-  titleEl.textContent = title || 'Document';
-  frame.src = previewUrl;
-  // "Open in new tab" can use /view for better UX
-  if (viewUrl) {
-    newTabLink.href = viewUrl;
-    newTabLink.dataset.noScroll = '1'; // Opt out of smooth-scroll handler
-  }
-
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
-
-  // Focus management
-  const focusableElements = modal.querySelectorAll(
-    'a[href], button:not([disabled]), [tabindex="0"]'
-  );
-  const firstFocusable = focusableElements[0];
-  const lastFocusable = focusableElements[focusableElements.length - 1];
-
-  modalKeyHandler = function (e) {
-    if (e.key === 'Escape') {
-      e.preventDefault();
-      closePDF('escape');
-    }
-
-    if (e.key === 'Tab') {
-      if (e.shiftKey && document.activeElement === firstFocusable) {
-        e.preventDefault();
-        lastFocusable.focus();
-      } else if (!e.shiftKey && document.activeElement === lastFocusable) {
-        e.preventDefault();
-        firstFocusable.focus();
-      }
-    }
-  };
-
-  modal.addEventListener('keydown', modalKeyHandler);
-  setTimeout(() => closeBtn.focus(), 100);
+  // Open
+  modal.setAttribute('open', '');
+  document.body.classList.add('modal-open');
+  pdfModalOpen = true;
+  frame.focus();
 }
 
-function closePDF(via = 'unknown') {
-  const modal = document.getElementById('pdfModal');
-  const frame = document.getElementById('pdfFrame');
-  const titleEl = document.getElementById('pdfTitle');
+function buildPdfModal() {
+  const modal = document.createElement('div');
+  modal.className = 'c-modal pdf c-modal--xl';
+  modal.innerHTML = `
+    <div class="c-modal__panel" role="dialog" aria-modal="true" aria-label="Floor plan">
+      <div class="c-modal__header">
+        <h3 class="c-modal__title">Floor Plan</h3>
+        <div class="c-modal__actions">
+          <button class="c-btn c-btn--primary c-btn--sm c-modal__newtab" aria-label="Open in new tab">Open in New Tab</button>
+          <button class="c-modal__close" aria-label="Close">✕</button>
+        </div>
+      </div>
+      <div class="c-modal__body">
+        <iframe class="c-modal__frame" title="PDF viewer" allow="fullscreen"></iframe>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
 
-  // Log PDF close event
-  window.Log &&
-    Log.event('pdf.close', {
-      title: titleEl ? titleEl.textContent : 'Unknown',
-      via: via,
+  // Close handlers (single path)
+  const closeBtn = modal.querySelector('.c-modal__close');
+  closeBtn.addEventListener('click', () => closePDF('button'));
+
+  // New tab handler
+  const newTabBtn = modal.querySelector('.c-modal__newtab');
+  newTabBtn.addEventListener('click', () => {
+    const frame = modal.querySelector('.c-modal__frame');
+    if (frame && frame.src) {
+      // Check if this is a Google Drive preview URL
+      if (frame.src.includes('drive.google.com') && frame.src.includes('/preview')) {
+        // Convert preview URL to view URL for better experience
+        const viewUrl = frame.src.replace('/preview', '/view');
+        window.open(viewUrl, '_blank', 'noopener');
+      } else {
+        // For local PDFs, just remove the view parameters
+        const cleanUrl = frame.src.replace(/#.*$/, '');
+        window.open(cleanUrl, '_blank', 'noopener');
+      }
+    }
+  });
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closePDF('backdrop');
+  });
+  document.addEventListener('keydown', (e) => {
+    if (pdfModalOpen && (e.key === 'Escape' || e.key === 'Backspace')) {
+      e.preventDefault();
+      closePDF(e.key === 'Escape' ? 'esc' : 'backspace');
+    }
+  });
+
+  return modal;
+}
+
+function closePDF(_via = 'unknown') {
+  const modal = document.querySelector('.c-modal.pdf');
+  if (!modal || !modal.hasAttribute('open')) return;
+
+  // Close the modal immediately
+  document.body.classList.remove('modal-open');
+  modal.removeAttribute('open');
+  const frame = modal.querySelector('.c-modal__frame');
+  if (frame) frame.src = 'about:blank';
+  pdfModalOpen = false;
+}
+
+// Drive folder modal - embed the folder view directly
+function openDriveModal() {
+  // Create modal if it doesn't exist
+  let modal = document.querySelector('.drive-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.className = 'c-modal drive-modal c-modal--xl';
+    modal.innerHTML = `
+      <div class="c-modal__panel" role="dialog" aria-modal="true">
+        <div class="c-modal__header">
+          <h3 class="c-modal__title">All Properties & Documents</h3>
+          <div class="c-modal__actions">
+            <button class="c-btn c-btn--primary c-btn--sm" onclick="window.open('https://drive.google.com/drive/folders/1_cSGSHD-JK0HnrydV_PPzKuSoIrMDEk5', '_blank')">Open in Google Drive</button>
+            <button class="c-modal__close" aria-label="Close">✕</button>
+          </div>
+        </div>
+        <div class="c-modal__body">
+          <iframe 
+            class="c-modal__frame" 
+            src="https://drive.google.com/drive/folders/1_cSGSHD-JK0HnrydV_PPzKuSoIrMDEk5"
+            title="Document Library" 
+            allow="fullscreen"
+            style="width: 100%; height: 100%; border: 0;">
+          </iframe>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    // Close button handler
+    modal.querySelector('.c-modal__close').addEventListener('click', closeDriveModal);
+
+    // Backdrop click handler
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeDriveModal();
     });
 
-  if (modalKeyHandler) {
-    modal.removeEventListener('keydown', modalKeyHandler);
-    modalKeyHandler = null;
+    // ESC key handler
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.hasAttribute('open')) {
+        closeDriveModal();
+      }
+    });
   }
 
-  modal.classList.remove('active');
-  frame.src = '';
-  document.body.style.overflow = '';
+  // Open modal
+  modal.setAttribute('open', '');
+  document.body.classList.add('modal-open');
+}
 
-  if (lastFocusedElement) {
-    lastFocusedElement.focus();
-    lastFocusedElement = null;
+function closeDriveModal() {
+  const modal = document.querySelector('.drive-modal');
+  if (modal) {
+    modal.removeAttribute('open');
+    document.body.classList.remove('modal-open');
+    // Clear iframe to stop any loading
+    const frame = modal.querySelector('.c-modal__frame');
+    if (frame) frame.src = 'about:blank';
   }
+}
+
+// Make functions globally available
+window.openDriveModal = openDriveModal;
+window.closeDriveModal = closeDriveModal;
+
+// Image expansion modal
+function openImageModal(imageSrc, title) {
+  // Create a simple fullscreen image modal
+  const modal = document.createElement('div');
+  modal.className = 'image-expand-modal';
+  modal.innerHTML = `
+    <div class="image-expand-content">
+      <button class="image-expand-close" aria-label="Close image">✕</button>
+      <img src="${imageSrc}" alt="${title}" />
+      <div class="image-expand-title">${title}</div>
+    </div>
+  `;
+
+  // Add styles
+  modal.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    animation: fadeIn 0.3s ease;
+  `;
+
+  const content = modal.querySelector('.image-expand-content');
+  content.style.cssText = `
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `;
+
+  const img = modal.querySelector('img');
+  img.style.cssText = `
+    max-width: 100%;
+    max-height: calc(90vh - 60px);
+    object-fit: contain;
+  `;
+
+  const closeBtn = modal.querySelector('.image-expand-close');
+  closeBtn.style.cssText = `
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1;
+  `;
+
+  const titleDiv = modal.querySelector('.image-expand-title');
+  titleDiv.style.cssText = `
+    color: white;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    text-align: center;
+  `;
+
+  // Close handlers
+  const closeModal = () => {
+    modal.style.animation = 'fadeOut 0.3s ease';
+    setTimeout(() => modal.remove(), 300);
+  };
+
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeModal();
+  });
+
+  modal.addEventListener('click', closeModal);
+
+  content.addEventListener('click', (e) => e.stopPropagation());
+
+  // ESC key handler
+  const escHandler = (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+      document.removeEventListener('keydown', escHandler);
+    }
+  };
+  document.addEventListener('keydown', escHandler);
+
+  document.body.appendChild(modal);
 }
 
 // --- Render functions ---
@@ -537,12 +688,13 @@ function renderLots(site) {
 
   site.lots.forEach((lot) => {
     const card = document.createElement('article');
-    card.className = 'lot-card';
+    card.className = 'c-card c-card--clickable';
+    card.setAttribute('data-variant', 'lot');
 
     // Add photos if available
     if (lot.photos?.length) {
       const figure = document.createElement('figure');
-      figure.className = 'lot-img';
+      figure.className = 'c-card__media';
 
       const img = document.createElement('img');
       const firstPhoto = lot.photos[0];
@@ -552,6 +704,8 @@ function renderLots(site) {
           ? `${lot.number} photo`
           : firstPhoto.alt || `${lot.number} photo`;
       img.loading = 'lazy';
+      img.decoding = 'async';
+      img.fetchPriority = 'low';
 
       figure.appendChild(img);
       card.appendChild(figure);
@@ -559,22 +713,32 @@ function renderLots(site) {
 
     const content = document.createElement('div');
     content.innerHTML = `
-      <div class="lot-header">
-        <div class="lot-number">${lot.title || lot.number}</div>
-        <div class="lot-size">${lot.size || 'Size TBD'}</div>
+      <div class="c-card__header">
+        <div class="c-card__title">${lot.title || lot.number}</div>
+        ${lot.size ? `<div class="c-card__meta">${lot.size}</div>` : ''}
       </div>
-      ${lot.description ? `<p class="lot-description">${lot.description}</p>` : ''}
-      <div class="lot-content">
-        <ul class="lot-features">
-          ${(lot.features || []).map((f) => `<li>${f}</li>`).join('')}
-        </ul>
-        <button class="btn">View Lot Documents</button>
+      <div class="c-card__body">
+        ${lot.description ? `<p>${lot.description}</p>` : ''}
+        ${
+          Array.isArray(lot.features) && lot.features.length
+            ? `
+          <ul class="c-card__features">
+            ${lot.features.map((f) => `<li>${f}</li>`).join('')}
+          </ul>`
+            : ''
+        }
+      </div>
+      <div class="c-card__actions">
+        <button class="c-btn c-btn--primary">View Lot Documents</button>
       </div>
     `;
 
     card.appendChild(content);
 
     const button = card.querySelector('button');
+    button.type = 'button';
+    button.setAttribute('aria-label', `View documents for ${lot.title || `Lot ${lot.number}`}`);
+
     // Prefer title_report if present, else fallback to the lot's file/platmap
     const ref =
       (lot.docRefs &&
@@ -584,10 +748,18 @@ function renderLots(site) {
     const canOpen = !!getPreviewUrl(site, ref, lot.page);
 
     button.disabled = !canOpen;
-    button.textContent = canOpen ? 'View Lot Documents' : 'Coming Soon';
-    if (canOpen) {
-      button.addEventListener('click', () => {
-        openPDF(site, ref, lot.title || lot.number, lot.page);
+    if (!canOpen) {
+      button.textContent = 'Coming Soon';
+      button.setAttribute('aria-disabled', 'true');
+    } else {
+      button.textContent = 'View Lot Documents';
+      // Make the whole card clickable for better UX
+      const open = () => openPDF(site, ref, lot.title || lot.number, lot.page);
+      button.addEventListener('click', open);
+
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('button')) return; // don't double-trigger
+        open();
       });
     }
 
@@ -601,30 +773,70 @@ function renderPlans(site) {
 
   container.innerHTML = '';
 
-  site.plans.forEach((plan) => {
+  site.plans.forEach((plan, _index) => {
     const card = document.createElement('div');
-    card.className = 'plan-card';
+    card.className = 'c-card';
+    card.setAttribute('data-variant', 'plan');
+
+    // Map plan names to PNG images
+    const planImageMap = {
+      'Plan 1': 'public/images/lancaster plans/plan-1.png',
+      'Plan 2': 'public/images/lancaster plans/plan-2.png',
+      'Plan 3': 'public/images/lancaster plans/plan-3.png',
+      'Plan 4': null, // No image yet for Plan 4
+    };
+
+    const planImage = planImageMap[plan.name];
 
     card.innerHTML = `
-      <div class="plan-header">
-        <div class="plan-icon">${plan.icon || '🏠'}</div>
-        <h3 class="plan-title">${plan.title}</h3>
-        ${plan.description ? `<p class="plan-description">${plan.description}</p>` : ''}
+      ${
+        planImage
+          ? `
+        <div class="c-card__media" style="cursor: pointer;" title="Click to enlarge">
+          <img src="${planImage}" alt="${plan.title}" loading="lazy" />
+        </div>
+      `
+          : ''
+      }
+      <div class="c-card__body">
+        ${!planImage ? `<div class="c-card__icon">${plan.icon || '🏠'}</div>` : ''}
+        <h3 class="c-card__title">${plan.title}</h3>
+        <ul class="c-card__features">
+          <li>${plan.sqft.toLocaleString()} Square Feet</li>
+          <li>${plan.bedrooms} ${plan.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}</li>
+          <li>${plan.bathrooms} ${plan.bathrooms === 1 ? 'Bathroom' : 'Bathrooms'}</li>
+          ${plan.garage ? `<li>${plan.garage} Car Garage</li>` : ''}
+        </ul>
       </div>
-      <div class="plan-content">
-        <button class="btn" aria-label="View ${plan.title} PDF">
+      <div class="c-card__actions">
+        <button class="c-btn c-btn--primary" aria-label="View ${plan.title} PDF">
           View Floor Plan
         </button>
       </div>
     `;
 
+    // Add click handler for image expansion
+    if (planImage) {
+      const imageDiv = card.querySelector('.c-card__media');
+      if (imageDiv) {
+        imageDiv.addEventListener('click', () => {
+          openImageModal(planImage, plan.title);
+        });
+      }
+    }
+
     const button = card.querySelector('button');
+    button.type = 'button';
+
     const refPlan = plan.file || plan.fileId;
     const canOpenPlan = !!getPreviewUrl(site, refPlan, plan.page);
 
     button.disabled = !canOpenPlan;
-    button.textContent = canOpenPlan ? 'View Floor Plan' : 'Coming Soon';
-    if (canOpenPlan) {
+    if (!canOpenPlan) {
+      button.textContent = 'Coming Soon';
+      button.setAttribute('aria-disabled', 'true');
+    } else {
+      button.textContent = 'View Floor Plan';
       button.addEventListener('click', () => {
         openPDF(site, refPlan, plan.title, plan.page);
       });
@@ -653,23 +865,28 @@ function renderDocuments(site) {
 
 function createDocCard(site, doc) {
   const card = document.createElement('div');
-  card.className = 'doc-card';
+  card.className = 'c-card';
+  card.setAttribute('data-variant', 'doc');
 
   const refDoc = doc.file || doc.fileId;
   const canOpenDoc = !!getPreviewUrl(site, refDoc, doc.page);
 
   card.innerHTML = `
-    <div class="doc-icon">${doc.icon || '📄'}</div>
-    <h4 class="doc-title">${doc.title}</h4>
-    <p class="doc-description">${doc.description || ''}</p>
-    <div class="doc-actions">
-      <button type="button" class="doc-link doc-link-view" aria-label="View ${doc.title}">
+    <div class="c-card__body">
+      <div class="c-card__icon">${doc.icon || '📄'}</div>
+      <h4 class="c-card__title">${doc.title}</h4>
+      ${doc.description ? `<p>${doc.description}</p>` : ''}
+    </div>
+    <div class="c-card__actions">
+      <button type="button" class="c-btn c-btn--primary" aria-label="View ${doc.title}">
         ${canOpenDoc ? 'View Document' : 'Coming Soon'}
       </button>
     </div>
   `;
 
-  const viewBtn = card.querySelector('.doc-link-view');
+  const viewBtn = card.querySelector('.c-btn');
+  viewBtn.type = 'button';
+
   if (canOpenDoc) {
     viewBtn.addEventListener('click', () => {
       window.Log && Log.event('doc.view.clicked', { title: doc.title });
@@ -721,7 +938,7 @@ function validateSiteData(site) {
   if (missingCount > 0) {
     console.warn(`⚠️ ${missingCount}/${fileCount} documents missing Drive IDs`);
   } else if (fileCount > 0) {
-    console.log(`✅ All ${fileCount} documents have Drive IDs`);
+    Log.info(`✅ All ${fileCount} documents have Drive IDs`);
   }
 
   return { missing, fileCount, missingCount };
@@ -734,7 +951,7 @@ async function initApp() {
     const site = await loadSiteData();
     window.SITE = site; // Store globally for debugging
 
-    console.log(`Loaded site: ${site.slug || 'default'}`);
+    Log.info(`Loaded site: ${site.slug || 'default'}`);
 
     // Validate data
     validateSiteData(site);
@@ -759,26 +976,6 @@ async function initApp() {
     // Set up PDF modal observability
     setupPDFObservability();
 
-    // Global escape key handler
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') {
-        const modal = document.getElementById('pdfModal');
-        if (modal && (modal.classList.contains('active') || modal.classList.contains('open'))) {
-          closePDF('escape');
-        }
-      }
-    });
-
-    // Background click to close modal
-    const modal = document.getElementById('pdfModal');
-    if (modal) {
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          closePDF('background');
-        }
-      });
-    }
-
     // Smooth scrolling for hash links only
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener('click', function (e) {
@@ -796,9 +993,8 @@ async function initApp() {
             if (target) {
               target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-          } catch (err) {
+          } catch {
             // Invalid selector, just navigate normally
-            Log.error('Invalid selector for smooth scroll:', href, err);
           }
         }
       });
@@ -822,6 +1018,15 @@ async function initApp() {
     `;
   }
 }
+
+// Handle browser back button for modal
+window.addEventListener('popstate', () => {
+  // Close the modal if it's open
+  const modal = document.querySelector('.c-modal.pdf');
+  if (modal && modal.hasAttribute('open')) {
+    closePDF('popstate');
+  }
+});
 
 // Start the app when DOM is ready
 if (document.readyState === 'loading') {
