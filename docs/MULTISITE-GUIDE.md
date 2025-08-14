@@ -19,7 +19,10 @@ A **reusable, multi-property marketing website** that can showcase unlimited dev
 ```
 /
 ├── index.html                 # Main app (reads ?site= parameter)
-├── css/styles.css            # Shared styles
+├── css/main.css              # Main stylesheet (imports all modules)
+├── css/base/                 # Base styles
+├── css/components/           # Component styles  
+├── css/layout/               # Layout styles
 ├── js/app-multisite.js       # Multi-site loader & renderer
 ├── sites/                    # Property-specific data
 │   ├── lancaster-12/
@@ -185,7 +188,7 @@ Create `portfolio.html` listing all properties:
 - **Update all sites**: Edit `js/app-multisite.js`
 - **Update one site**: Edit `sites/[slug]/data.json`
 - **Add features**: Extend renderer functions in app-multisite.js
-- **Change styles**: Edit `css/styles.css` (affects all sites)
+- **Change styles**: Edit `css/main.css` or component-specific files in `css/components/`
 
 ## 🎉 Ready to Scale!
 
