@@ -146,18 +146,7 @@
   border-color: rgba(255, 255, 255, 0.85);
 }
 
-/* Mobile tweaks */
-@media (max-width: 768px) {
-  .c-hero__actions {
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .c-hero--full {
-    min-height: 70vh;
-  }
-}
+/* Mobile styles removed - using desktop layout on all devices via viewport width=1024 */
 
 /* Header hero styles */
 header[data-bg='hero'] {
@@ -268,94 +257,4 @@ header[data-bg='hero'] .brand .desert-crest-logo--hero {
   opacity: 0.7; /* slightly transparent so content is readable */
   pointer-events: none;
   z-index: 0; /* behind everything */
-}
-
-/* Mobile/Tablet: hero-specific responsiveness */
-@media (max-width: 900px) {
-  header[data-bg='hero'] {
-    min-height: auto;
-    padding: var(--space-6) 0;
-    background-attachment: scroll; /* fixed backgrounds are janky on mobile */
-  }
-
-  header[data-bg='hero'] .hero-with-owner {
-    flex-direction: row; /* keep side by side on mobile */
-    align-items: flex-start;
-    gap: var(--space-3);
-    text-align: left;
-  }
-
-  header[data-bg='hero'] .hero-content {
-    margin: 0; /* remove the desktop offset */
-    text-align: left;
-    flex: 1; /* take remaining space */
-  }
-
-  header[data-bg='hero'] .hero-actions {
-    justify-content: flex-start; /* left align on mobile */
-  }
-
-  /* Scale down title and subtitle on mobile */
-  header[data-bg='hero'] .c-hero__title {
-    font-size: clamp(1.25rem, 3vw, 1.75rem); /* much smaller on mobile */
-    margin: 0 0 var(--space-2) 0;
-  }
-
-  header[data-bg='hero'] .c-hero__subtitle {
-    font-size: clamp(0.75rem, 1.5vw, 0.9rem); /* smaller on mobile */
-    margin-bottom: var(--space-2);
-  }
-
-  /* Owner photo sizing - no cropping */
-  header[data-bg='hero'] .owner-profile {
-    max-width: 160px;
-  }
-  header[data-bg='hero'] .owner-photo {
-    width: 128px;
-    height: auto; /* maintain aspect ratio, no cropping */
-    object-fit: contain; /* show full image without cropping */
-    border-radius: 8px; /* rounded corners instead of circle */
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-
-  /* HB logo on mobile */
-  header[data-bg='hero'] .brand-logo {
-    width: 160px; /* increased for better visibility */
-  }
-  header[data-bg='hero'] .brand .desert-crest-logo--hero {
-    width: 100px;
-  }
-}
-
-@media (max-width: 480px) {
-  header[data-bg='hero'] .owner-profile {
-    max-width: 120px;
-  }
-  /* No-crop avatar on small phones too */
-  header[data-bg='hero'] .owner-photo {
-    width: min(100px, 45vw);
-    height: auto; /* important - no cropping */
-    object-fit: contain; /* shows full image */
-    border-radius: 8px; /* matches new style */
-  }
-
-  /* Smaller logos on tiny screens */
-  header[data-bg='hero'] .brand-logo {
-    width: min(110px, 40vw);
-  }
-  header[data-bg='hero'] .brand .desert-crest-logo--hero {
-    width: min(100px, 35vw);
-  }
-
-  /* Stack hero actions on narrow phones */
-  header[data-bg='hero'] .hero-actions {
-    flex-direction: column;
-    width: 100%;
-  }
-  header[data-bg='hero'] .hero-actions .c-btn {
-    width: 100%;
-    max-width: 280px;
-    margin: 0 auto;
-  }
 }
