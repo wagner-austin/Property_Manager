@@ -110,3 +110,23 @@
     background-attachment: scroll;
   }
 }
+
+/* Presentation Container */
+.presentation-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: var(--space-4);
+  margin-bottom: 2rem;
+}
+
+.presentation-container .c-card {
+  border: 2px solid var(--primary);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+  .presentation-container {
+    grid-template-columns: minmax(400px, 500px);
+    justify-content: center;
+  }
+}

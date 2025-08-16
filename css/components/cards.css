@@ -167,6 +167,38 @@ a.c-card {
   font-size: 1.2em;
 }
 
+/* Documentation Cards - Different styling */
+.c-card--doc {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+  border: 1px solid var(--primary);
+}
+
+.c-card--doc .c-card__title {
+  color: var(--primary);
+}
+
+.c-card--doc .c-btn--primary {
+  background: var(--primary);
+}
+
+/* Entitlement Report - Full PDF preview style */
+.c-card--entitlement {
+  padding: 0;
+  overflow: hidden;
+}
+
+.c-card--entitlement .c-card__media {
+  height: 100%;
+  aspect-ratio: 8.5 / 11;
+  margin: 0;
+}
+
+.c-card--entitlement .c-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* Card actions */
 .c-card__actions {
   padding: var(--card-padding);
