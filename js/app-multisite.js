@@ -767,6 +767,74 @@ function renderLots(site) {
   });
 }
 
+function renderPresentation(site) {
+  const container = document.getElementById('presentationContainer');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  // Find the presentation in projectDocs
+  const presentation = (site.projectDocs || []).find((doc) => doc.id === 'presentation');
+  if (!presentation) return;
+
+  const card = document.createElement('div');
+  card.className = 'c-card';
+  card.setAttribute('data-variant', 'plan');
+
+  const refDoc = presentation.file || presentation.fileId;
+  const canOpenDoc = !!getPreviewUrl(site, refDoc, presentation.page);
+
+  // Use the presentation first page image
+  const presentationImage = 'public/brand/logos/FIRST PAGE OF CREST PRESENTATION.png';
+
+  card.innerHTML = `
+    ${
+      presentationImage
+        ? `
+      <div class="c-card__media" style="cursor: pointer;">
+        <img src="${presentationImage}" alt="${presentation.title}" loading="lazy" />
+      </div>
+    `
+        : ''
+    }
+    <div class="c-card__body">
+      ${!presentationImage ? `<div class="c-card__icon">${presentation.icon || '📊'}</div>` : ''}
+      <h3 class="c-card__title">${presentation.title}</h3>
+      ${presentation.description ? `<p class="c-card__description">${presentation.description}</p>` : ''}
+    </div>
+    <div class="c-card__actions">
+      <button class="c-btn c-btn--primary" aria-label="View ${presentation.title} PDF">
+        View Presentation
+      </button>
+    </div>
+  `;
+
+  // Add click handler for image to open PDF (same as button)
+  if (presentationImage && canOpenDoc) {
+    const imageDiv = card.querySelector('.c-card__media');
+    if (imageDiv) {
+      imageDiv.addEventListener('click', () => {
+        openPDF(site, refDoc, presentation.title, presentation.page);
+      });
+    }
+  }
+
+  const button = card.querySelector('button');
+  button.type = 'button';
+  button.disabled = !canOpenDoc;
+
+  if (!canOpenDoc) {
+    button.textContent = 'Coming Soon';
+    button.setAttribute('aria-disabled', 'true');
+  } else {
+    button.addEventListener('click', () => {
+      openPDF(site, refDoc, presentation.title, presentation.page);
+    });
+  }
+
+  container.appendChild(card);
+}
+
 function renderPlans(site) {
   const container = document.getElementById('plansGrid');
   if (!container || !site.plans) return;
@@ -783,7 +851,7 @@ function renderPlans(site) {
       'Plan 1': 'public/images/lancaster plans/plan-1.png',
       'Plan 2': 'public/images/lancaster plans/plan-2.png',
       'Plan 3': 'public/images/lancaster plans/plan-3.png',
-      'Plan 4': null, // No image yet for Plan 4
+      'Plan 4': 'public/images/lancaster plans/plan-4.png',
     };
 
     const planImage = planImageMap[plan.name];
@@ -810,7 +878,7 @@ function renderPlans(site) {
       </div>
       <div class="c-card__actions">
         <button class="c-btn c-btn--primary" aria-label="View ${plan.title} PDF">
-          View Floor Plan
+          Review Working Plans
         </button>
       </div>
     `;
@@ -836,10 +904,114 @@ function renderPlans(site) {
       button.textContent = 'Coming Soon';
       button.setAttribute('aria-disabled', 'true');
     } else {
-      button.textContent = 'View Floor Plan';
+      button.textContent = 'Review Working Plans';
       button.addEventListener('click', () => {
         openPDF(site, refPlan, plan.title, plan.page);
       });
+    }
+
+    container.appendChild(card);
+  });
+
+  // Add the two documentation cards as plan cards
+  const docs = (site.projectDocs || []).filter(
+    (doc) => doc.id === 'entitlement-report' || doc.id === 'tract-grading'
+  );
+
+  docs.forEach((doc) => {
+    const card = document.createElement('div');
+    const isEntitlement = doc.id === 'entitlement-report';
+    card.className = isEntitlement
+      ? 'c-card c-card--doc c-card--entitlement'
+      : 'c-card c-card--doc';
+    card.setAttribute('data-variant', 'plan');
+
+    const refDoc = doc.file || doc.fileId;
+    const canOpenDoc = !!getPreviewUrl(site, refDoc, doc.page);
+
+    // For Entitlement Report, use a preview image of the PDF first page
+    const previewImage = isEntitlement ? 'public/documents/entitlement-preview.png' : null;
+
+    if (isEntitlement && previewImage) {
+      // Full PDF preview style for Entitlement Report
+      card.innerHTML = `
+        <div class="c-card__media" style="position: relative; padding: 0 12px 45px 12px; background: white;">
+          <img src="${previewImage}" alt="${doc.title}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain; position: relative; top: -8px;" />
+          <div class="c-card__actions" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.95); margin: 0;">
+            <button class="c-btn c-btn--primary" aria-label="View ${doc.title} PDF">
+              View Document
+            </button>
+          </div>
+        </div>
+      `;
+    } else {
+      // Regular style for other docs
+      const isTractGrading = doc.id === 'tract-grading';
+      card.innerHTML = `
+        <div class="c-card__body" style="${isTractGrading ? 'cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 250px; padding-bottom: 40px;' : ''}">
+          <div class="c-card__icon" style="${isTractGrading ? 'font-size: 3rem;' : ''}">${doc.icon || '📄'}</div>
+          <h3 class="c-card__title" style="${isTractGrading ? 'font-size: 1.3rem; text-align: center;' : ''}">${doc.title}</h3>
+          ${doc.description ? `<p class="c-card__description">${doc.description}</p>` : ''}
+        </div>
+        <div class="c-card__actions">
+          <button class="c-btn c-btn--primary" aria-label="View ${doc.title} PDF">
+            View Document
+          </button>
+        </div>
+      `;
+    }
+
+    if (isEntitlement && previewImage) {
+      // For Entitlement Report, handle button click
+      const button = card.querySelector('button');
+      if (button) {
+        button.type = 'button';
+        button.disabled = !canOpenDoc;
+
+        if (!canOpenDoc) {
+          button.textContent = 'Coming Soon';
+          button.setAttribute('aria-disabled', 'true');
+        } else {
+          button.addEventListener('click', () => {
+            openPDF(site, refDoc, doc.title, doc.page);
+          });
+        }
+      }
+
+      // Also make the image clickable
+      const img = card.querySelector('.c-card__media img');
+      if (img && canOpenDoc) {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', () => {
+          openPDF(site, refDoc, doc.title, doc.page);
+        });
+      }
+    } else {
+      // For other docs, use the button
+      const button = card.querySelector('button');
+      if (button) {
+        button.type = 'button';
+        button.disabled = !canOpenDoc;
+
+        if (!canOpenDoc) {
+          button.textContent = 'Coming Soon';
+          button.setAttribute('aria-disabled', 'true');
+        } else {
+          button.addEventListener('click', () => {
+            openPDF(site, refDoc, doc.title, doc.page);
+          });
+
+          // For tract-grading card, make the entire card clickable
+          if (doc.id === 'tract-grading') {
+            const cardBody = card.querySelector('.c-card__body');
+            if (cardBody) {
+              cardBody.addEventListener('click', () => {
+                openPDF(site, refDoc, doc.title, doc.page);
+              });
+            }
+          }
+        }
+      }
     }
 
     container.appendChild(card);
@@ -852,14 +1024,11 @@ function renderDocuments(site) {
 
   container.innerHTML = '';
 
-  // Add presentation first if it exists
-  if (site.presentation && (site.presentation.file || site.presentation.fileId)) {
-    container.appendChild(createDocCard(site, site.presentation));
-  }
-
-  // Add project documents
+  // Add project documents (excluding presentation which is now in plans section)
   (site.projectDocs || []).forEach((doc) => {
-    container.appendChild(createDocCard(site, doc));
+    if (doc.id !== 'presentation') {
+      container.appendChild(createDocCard(site, doc));
+    }
   });
 }
 
@@ -964,6 +1133,7 @@ async function initApp() {
 
     // Render sections
     renderLots(site);
+    renderPresentation(site);
     renderPlans(site);
     renderDocuments(site);
 
