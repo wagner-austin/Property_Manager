@@ -416,6 +416,12 @@ function openPDF(site, fileRef, title, page) {
     modal.setAttribute('open', '');
     document.body.classList.add('modal-open');
     pdfModalOpen = true;
+
+    // Add a hash to track modal state
+    if (!window.location.hash || window.location.hash !== '#pdf-modal') {
+      window.location.hash = 'pdf-modal';
+    }
+
     frame.focus();
     return;
   }
@@ -450,6 +456,12 @@ function openPDF(site, fileRef, title, page) {
   modal.setAttribute('open', '');
   document.body.classList.add('modal-open');
   pdfModalOpen = true;
+
+  // Add a hash to track modal state
+  if (!window.location.hash || window.location.hash !== '#pdf-modal') {
+    window.location.hash = 'pdf-modal';
+  }
+
   frame.focus();
 }
 
@@ -517,6 +529,17 @@ function closePDF(_via = 'unknown') {
   const frame = modal.querySelector('.c-modal__frame');
   if (frame) frame.src = 'about:blank';
   pdfModalOpen = false;
+
+  // Remove hash if it's still there
+  if (window.location.hash === '#pdf-modal') {
+    // Go back to remove the hash
+    if (_via === 'back' || _via === 'popstate') {
+      // Hash will be removed by the back navigation itself
+    } else {
+      // For other close methods, remove hash without adding to history
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  }
 }
 
 // Drive folder modal - embed the folder view directly
@@ -1189,12 +1212,11 @@ async function initApp() {
   }
 }
 
-// Handle browser back button for modal
-window.addEventListener('popstate', () => {
-  // Close the modal if it's open
-  const modal = document.querySelector('.c-modal.pdf');
-  if (modal && modal.hasAttribute('open')) {
-    closePDF('popstate');
+// Handle hash changes (including back button)
+window.addEventListener('hashchange', () => {
+  // If we're navigating away from #pdf-modal, close the modal
+  if (window.location.hash !== '#pdf-modal' && pdfModalOpen) {
+    closePDF('back');
   }
 });
 
