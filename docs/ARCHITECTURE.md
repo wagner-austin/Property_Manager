@@ -165,6 +165,28 @@ Config Load → URL Resolution → DOM Update → Error Handling
 - Enable/disable control
 - URL parameter activation
 
+### 4. Modal System
+
+**Purpose**: Display PDF documents in an overlay modal.
+
+**Key Features**:
+- Google Drive document preview
+- Local PDF file support
+- Mobile-friendly navigation
+- Keyboard and touch controls
+
+**Closing Methods**:
+- ESC key press
+- Back button (mobile devices via hash navigation)
+- Click outside modal
+- X button in header
+
+**Technical Implementation**:
+- Uses URL hash (`#pdf-modal`) for back button support
+- Tracks modal state with `pdfModalOpen` flag
+- Listens to `hashchange` event for mobile back button
+- Cleans up hash on modal close
+
 ## Design Patterns
 
 ### 1. Module Pattern

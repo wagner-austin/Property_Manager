@@ -77,6 +77,7 @@ python -m http.server 8000
 ### What to Test
 - [ ] PDF modal opens/closes
 - [ ] ESC key closes modal
+- [ ] Back button closes modal (mobile)
 - [ ] Click outside closes modal
 - [ ] "Open in Drive" links work
 - [ ] Phone/email links work

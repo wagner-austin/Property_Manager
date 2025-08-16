@@ -75,12 +75,21 @@ openPDF('DRIVE_FILE_ID', 'Document Title', 5);
 - `title` (string): Document title for display
 - `page` (number, optional): Page number to jump to
 
+**Behavior:**
+- Adds `#pdf-modal` hash to URL for back button handling
+- Can be closed with ESC key, back button (mobile), or X button
+
 ##### `closePDF()`
 Closes the PDF modal viewer.
 
 ```javascript
 closePDF();
 ```
+
+**Behavior:**
+- Removes modal from view
+- Clears iframe source
+- Removes `#pdf-modal` hash from URL
 
 #### Custom Events
 
