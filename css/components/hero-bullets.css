@@ -34,29 +34,7 @@
   flex-shrink: 0;
 }
 
-/* Mobile responsive */
-@media (max-width: 768px) {
-  .hero-bullets {
-    flex-direction: row; /* keep horizontal on mobile */
-    align-items: flex-start;
-    gap: var(--space-2); /* smaller gap */
-  }
-
-  header[data-bg='hero'] .hero-bullets {
-    align-items: flex-start; /* left align */
-  }
-
-  .hero-bullet {
-    font-size: 0.65rem; /* much smaller text */
-  }
-
-  .hero-bullet::before {
-    width: 18px; /* smaller icon */
-    height: 18px;
-    font-size: 10px;
-    margin-right: 6px;
-  }
-}
+/* Mobile styles removed - using desktop layout on all devices via viewport width=1024 */
 
 /* High contrast support */
 @media (forced-colors: active) {
