@@ -92,34 +92,4 @@
   /* No opacity or filters - completely normal */
 }
 
-/* Mobile responsive */
-@media (max-width: 768px) {
-  .investment-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-4);
-  }
-
-  .investment-title {
-    font-size: var(--text-2xl);
-  }
-
-  .investment-subtitle {
-    font-size: var(--text-base);
-  }
-
-  .investment-section .desert-crest-logo {
-    max-width: 150px;
-    top: var(--space-2);
-    right: var(--space-2);
-  }
-}
-
-@media (max-width: 480px) {
-  .investment-section .desert-crest-logo {
-    max-width: 120px;
-  }
-
-  .investment-card {
-    padding: var(--space-4);
-  }
-}
+/* Mobile styles removed - using desktop layout on all devices via viewport width=1024 */
