@@ -107,7 +107,7 @@
     font-size: var(--text-base);
   }
 
-  .desert-crest-logo {
+  .investment-section .desert-crest-logo {
     max-width: 150px;
     top: var(--space-2);
     right: var(--space-2);
@@ -115,7 +115,7 @@
 }
 
 @media (max-width: 480px) {
-  .desert-crest-logo {
+  .investment-section .desert-crest-logo {
     max-width: 120px;
   }
 
