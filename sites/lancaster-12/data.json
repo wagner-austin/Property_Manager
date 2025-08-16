@@ -265,26 +265,26 @@
   ],
   "projectDocs": [
     {
-      "id": "platmap-1",
-      "title": "Tentative Tract Map",
-      "description": "APN 3203-017-011, 006",
-      "file": "19enggNl1B0ZS-xu1btxPzAmbAYcQIhmu",
-      "icon": "\ud83d\uddfa\ufe0f",
-      "name": "LANCASTER 12 LOT PLATMAP.pdf"
+      "id": "entitlement-report",
+      "title": "Entitlement Progress Report",
+      "description": "",
+      "file": "1Yjm4Uknw5GTAKZmWKG3Nl8t6Dzx-aTnm",
+      "icon": "📐",
+      "name": "LANCASTER 12 DUKE JULY.pdf"
     },
     {
-      "id": "engineering-combined",
-      "title": "Engineering Plans, Tentative Tract Map & Conceptual Grading",
-      "description": "Duke Engineering plans, plat map preview, and conceptual grading combined",
-      "file": "1vj_fgJO8jhrLoaWsBkjX5MowHwbwMDdG",
-      "icon": "📐",
-      "name": "ENGINEERING LIST - PLAT MAP - CONCEPTUAL GRADING.pdf"
+      "id": "tract-grading",
+      "title": "Tentative Tract Map & Conceptual Grading",
+      "description": "",
+      "file": "1BBYDkE4L3H98UpnqAo_pyWpDYHBdlYt1",
+      "icon": "\ud83d\uddfa\ufe0f",
+      "name": "TENTATIVE TRACT MAP - CONCEPTUAL GRADING.pdf"
     },
     {
       "id": "presentation",
       "title": "Desert Crest View Presentation",
       "description": "Complete project overview and investment opportunity presentation",
-      "file": "1D9NwqVxkAGdnbtDN7TPyNezrWJBx88kg",
+      "file": "1Bn-b-qN_Zj9xUQ9FHiNwZB2FGST65kfw",
       "icon": "📊",
       "name": "UPDATED - Desert Crest View Presentation PDF.pdf"
     }
