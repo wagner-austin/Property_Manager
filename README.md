@@ -90,17 +90,6 @@ For complete configuration guide, see [docs/CONFIGURATION.md](docs/CONFIGURATION
 
 The site can be deployed to any static hosting service. See [docs/DEPLOY.md](docs/DEPLOY.md) for detailed instructions.
 
-## 📄 About
-
-**Huntington Beach Capital Partners, Inc.**  
-Rick Reza / President  
-16882 Bolsa Chica St. #102  
-Huntington Beach, CA 92649  
-Phone: (714) 713-8618  
-DRE. 00970335 NMLS. 273226
-
----
-
 ## 📚 Documentation
 
 For comprehensive documentation, see the [docs/](docs/) directory:
