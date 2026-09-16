@@ -1,0 +1,38 @@
+/* Property tabs component */
+/* One tab per entry in sites/index.json; the current site is aria-current. */
+
+.c-site-tabs {
+  background: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.c-site-tabs__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0;
+  padding: var(--space-2) 0 0 0;
+  list-style: none;
+}
+
+.c-site-tabs__tab {
+  display: block;
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.c-site-tabs__tab:hover,
+.c-site-tabs__tab:focus-visible {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.c-site-tabs__tab[aria-current='page'] {
+  background: var(--surface);
+  color: var(--primary);
+}

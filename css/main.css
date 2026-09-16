@@ -33,6 +33,7 @@
 @import url('./components/hero-bullets.css');
 @import url('./components/investment.css');
 @import url('./components/footer.css');
+@import url('./components/site-tabs.css');
 
 /* Utility Layer: Helpers and misc */
 @import url('./components/utilities.css');

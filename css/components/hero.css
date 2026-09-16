@@ -241,6 +241,14 @@ header[data-bg='hero'] .brand {
   gap: var(--space-3);
 }
 
+/* Asking price, shown when a site sets brand.price */
+.c-hero__price {
+  margin: 0;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: #ffffff;
+}
+
 /* Make HB logo larger inside the hero */
 header[data-bg='hero'] .brand-logo {
   width: clamp(200px, 24vw, 360px); /* increased size */
