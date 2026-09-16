@@ -80,9 +80,16 @@ Each site's `data.json` contains:
   "brand": {
     "title": "Lancaster 12 Lots",
     "tagline": "Premium Development Properties",
+    "projectLine": "Lancaster 12 Lot Development",  // footer line beside the location
     "theme": {
       "primary": "#1a365d",
       "accent": "#2563eb"
+    }
+  },
+  "sections": {
+    "plans": {
+      "title": "INVESTMENT OPPORTUNITY - PHASE II",      // heading above the plans/documents grid
+      "subtitle": ["12 ENTITLED LOTS • 4 APPROVED PLANS", "second line"]
     }
   },
   "contact": {
@@ -100,9 +107,45 @@ Each site's `data.json` contains:
   "presentation": {...},
   "lots": [...],
   "plans": [...],
-  "projectDocs": [...]
+  "projectDocs": [...]   // every entry except id "presentation" renders as a document card
 }
 ```
+
+A document's `file` may be a Google Drive file id, an `https://` URL, or a
+same-origin path such as `public/documents/lancaster-18/layout.pdf`. Local paths
+open in the browser's native PDF viewer and are how a site is previewed before
+its documents have Drive ids.
+
+## 🗂️ Property Tabs
+
+`sites/index.json` lists the properties in tab order, and the page renders one
+tab per entry across the top (the bar stays hidden while fewer than two tabs
+would show). A static host cannot list the `sites/` folder, so a site missing
+from this file has no tab and visitors never find it. `make test` runs
+`scripts/check_site_index.py`, which fails if the file and the folders disagree
+in either direction, if a status is unknown, or if no site is live.
+
+```json
+{
+  "sites": [
+    { "slug": "lancaster-12", "label": "Lancaster 12 Lots", "status": "live" },
+    { "slug": "lancaster-18", "label": "Lancaster 18 Lots", "status": "preview" }
+  ]
+}
+```
+
+### Previewing a property before it goes public
+
+- `"status": "live"` shows the tab on the public site.
+- `"status": "preview"` hides the tab on the public site and shows it only in
+  preview mode, which is `?preview=1` in the URL. Tab links keep the flag.
+- `https://propertieshb.com/preview/` is the link to send for review. It
+  redirects into preview mode on the property named in `preview/index.html`;
+  change that slug when a different property is under review.
+- To publish, change the entry's status to `"live"` and push.
+
+A site may also set `brand.price` (for example `"Offered at $375,000"`), shown
+in the header under the tagline. Leave it out and no price appears.
 
 ## 🔗 URL Examples
 
