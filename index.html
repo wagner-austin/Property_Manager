@@ -34,6 +34,13 @@
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
+    <!-- Property tabs, filled from sites/index.json -->
+    <nav class="c-site-tabs" aria-label="Properties" hidden>
+      <div class="container">
+        <ul id="siteTabs" class="c-site-tabs__list"></ul>
+      </div>
+    </nav>
+
     <!-- Header -->
     <header data-bg="hero" class="c-hero c-hero--brand c-hero--left" aria-labelledby="hero-title">
       <div class="container">
@@ -61,6 +68,7 @@
             <p class="tagline c-hero__subtitle">
               Premium Development Properties - Ready for Your Vision
             </p>
+            <p id="heroPrice" class="c-hero__price" hidden></p>
             <div class="hero-bullets">
               <div class="hero-bullet">Fully Graded</div>
               <div class="hero-bullet">Entitlements Complete</div>
@@ -90,8 +98,10 @@
     <section class="section plans-section" id="plans">
       <div class="container">
         <div class="section-header section__header">
-          <h2 class="section-title section__title">INVESTMENT OPPORTUNITY - PHASE II</h2>
-          <p class="section-subtitle section__subtitle">
+          <h2 id="sectionTitle" class="section-title section__title">
+            INVESTMENT OPPORTUNITY - PHASE II
+          </h2>
+          <p id="sectionSubtitle" class="section-subtitle section__subtitle">
             12 ENTITLED LOTS • 4 APPROVED PLANS<br />
             Professional architectural designs ready for development
           </p>
@@ -114,7 +124,8 @@
           rights reserved.
         </p>
         <p class="c-footer__text">
-          Lancaster 12 Lot Development • <span id="footerLocation">Lancaster, California</span>
+          <span id="footerProject">Lancaster 12 Lot Development</span> •
+          <span id="footerLocation">Lancaster, California</span>
         </p>
         <p class="c-footer__text">
           <a href="tel:+17147138618" style="color: inherit; text-decoration: underline"

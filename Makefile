@@ -67,7 +67,9 @@ test:
 	@test -f js/app-multisite.js || (echo "❌ Missing: js/app-multisite.js" && exit 1)
 	@test -d sites/lancaster-12 || (echo "❌ Missing: sites/lancaster-12/" && exit 1)
 	@test -f sites/lancaster-12/data.json || (echo "❌ Missing: sites/lancaster-12/data.json" && exit 1)
+	@test -f sites/index.json || (echo "❌ Missing: sites/index.json" && exit 1)
 	@echo "✅ All required files present"
+	@python -m scripts.check_site_index
 
 check:
 	@echo "Checking Drive placeholders in site data..."
@@ -124,10 +126,11 @@ new:
 		echo ""; \
 		echo "Next steps:"; \
 		echo "1. Edit sites/$(SITE)/data.json with property details"; \
-		echo "2. Set drive.publicFolderId to your Public folder ID"; \
-		echo "3. Run: make drive-apply SITE=$(SITE)"; \
-		echo "4. Test with: make serve"; \
-		echo "5. Open: http://localhost:$(PORT)/index.html?site=$(SITE)"; \
+		echo "2. Add $(SITE) to sites/index.json so it gets a tab (make test checks this)"; \
+		echo "3. Set drive.publicFolderId to your Public folder ID"; \
+		echo "4. Run: make drive-apply SITE=$(SITE)"; \
+		echo "5. Test with: make serve"; \
+		echo "6. Open: http://localhost:$(PORT)/index.html?site=$(SITE)"; \
 	else \
 		echo "Error: Template not found at sites/_template/data.json"; \
 		exit 1; \
