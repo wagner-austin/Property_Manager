@@ -1,0 +1,79 @@
+{
+  "slug": "lancaster-18",
+  "siteName": "Lancaster 18",
+  "brand": {
+    "title": "Lancaster 18 Lots",
+    "tagline": "Development Opportunity - Tentative Tract 084522, West Lancaster",
+    "projectLine": "Lancaster 18 Lot Development",
+    "price": "Offered at $375,000",
+    "theme": {
+      "primary": "#0a5071",
+      "accent": "#2563eb",
+      "success": "#10b981"
+    }
+  },
+  "contact": {
+    "companyName": "Huntington Beach Capital Partners, Inc.",
+    "phoneDisplay": "(714) 713-8618",
+    "phoneE164": "+17147138618",
+    "email": "rickreza@yahoo.com"
+  },
+  "drive": {
+    "publicFolderId": "11w2jsOElzvFvpetMEaTysmNHfEWNl4ZZ",
+    "folderId": "11w2jsOElzvFvpetMEaTysmNHfEWNl4ZZ"
+  },
+  "location": {
+    "city": "Lancaster",
+    "state": "CA",
+    "zip": "93536",
+    "lat": 0,
+    "lng": 0
+  },
+  "viewer": "drive",
+  "heroBullets": [
+    "18 Lots • Zoned R-7000 • TTM 084522",
+    "Lots from 7,022 to 12,934 sq ft",
+    "Phase 1 Street, Sewer, Gutter, Sidewalk & Utilities to the Property Line"
+  ],
+  "sections": {
+    "plans": {
+      "title": "DEVELOPMENT OPPORTUNITY - 18 LOTS",
+      "subtitle": [
+        "18-LOT CONCEPTUAL LAYOUT • APN 3203-017-011 & -006 • AVENUE J-15 AT 57TH STREET WEST",
+        "Block wall on the west side and Phase 1 improvements in place to the edge of the development. Remaining: the geotechnical report and the City-requested Initial Study and Traffic Memo, about 4 weeks once ordered."
+      ]
+    }
+  },
+  "plans": [],
+  "lots": [],
+  "projectDocs": [
+    {
+      "id": "lot-layout",
+      "title": "Conceptual Lot Layout — TTM 084522",
+      "description": "City of Lancaster conceptual grading and lot layout by Duke Engineering, dated June 30, 2026. Eighteen lots on Avenue J-15 with future private streets; APN 3203-017-011 and -006, zoned R-7000.",
+      "file": "1Gis8f_xw7v-tDSOaQKJQ_LBnbJCn0fKD",
+      "icon": "🗺️",
+      "name": "LANCASTER 18 Conceptual Lot Layout 06-30-2026.pdf"
+    },
+    {
+      "id": "geotechnical-proposal",
+      "title": "Geotechnical Report — Cost Proposal",
+      "description": "Bruin Geotechnical Services proposal dated January 20, 2026 for the geotechnical engineering report on the approximately 5-acre tract: six borings, laboratory testing and the report, $9,950. The final soils work the project still needs.",
+      "file": "1gcV9Rpf_gnKA6u5v0k5T_kWNu7lo_ALX",
+      "icon": "🧪",
+      "name": "LANCASTER 18 SOIL.pdf"
+    },
+    {
+      "id": "study-proposal",
+      "title": "Initial Study & Traffic Memo — Proposal",
+      "description": "Duke Engineering proposal #26-01-24 dated January 28, 2026 for the additional documents the City of Lancaster requested for TTM 084522: Initial Study $40,480 and Traffic Memo $11,760, $52,240 total.",
+      "file": "1scsrS6hen8apnNaLCNJ9x60FE-YRfahW",
+      "icon": "📄",
+      "name": "LANCASTER STUDY & TRAFFIC STUDY.pdf"
+    }
+  ],
+  "photos": [],
+  "flags": {
+    "hideEmptySections": true
+  }
+}

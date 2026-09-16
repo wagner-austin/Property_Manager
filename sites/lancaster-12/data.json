@@ -1,5 +1,14 @@
 {
   "siteName": "Lancaster 12",
+  "sections": {
+    "plans": {
+      "title": "INVESTMENT OPPORTUNITY - PHASE II",
+      "subtitle": [
+        "12 ENTITLED LOTS • 4 APPROVED PLANS",
+        "Professional architectural designs ready for development"
+      ]
+    }
+  },
   "plans": [
     {
       "id": "plan-1",

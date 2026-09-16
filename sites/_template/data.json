@@ -3,6 +3,7 @@
   "brand": {
     "title": "REPLACE_ME",
     "tagline": "Premium Development Properties",
+    "projectLine": "REPLACE_ME",
     "theme": {
       "primary": "#1a365d",
       "accent": "#2563eb",
@@ -32,6 +33,12 @@
     "Entitlements Complete",
     "Development Ready"
   ],
+  "sections": {
+    "plans": {
+      "title": "REPLACE_ME",
+      "subtitle": ["REPLACE_ME", "REPLACE_ME"]
+    }
+  },
   "presentation": {
     "title": "Complete Presentation",
     "description": "",

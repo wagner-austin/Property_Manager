@@ -1,0 +1,6 @@
+{
+  "sites": [
+    { "slug": "lancaster-12", "label": "Lancaster 12 Lots", "status": "live" },
+    { "slug": "lancaster-18", "label": "Lancaster 18 Lots", "status": "preview" }
+  ]
+}
