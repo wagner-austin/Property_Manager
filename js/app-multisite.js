@@ -36,6 +36,9 @@ async function loadSiteData() {
       const json = await res.json();
       window.Log && Log.timeEnd('fetch-site-data');
       const cfg = normalizeConfig(json);
+      // The folder that was loaded is the site's identity; a data.json
+      // need not repeat it (lancaster-12's does not).
+      cfg.slug = slug;
       window.Log &&
         Log.event('site.loaded', {
           slug,
@@ -207,6 +210,14 @@ function getPreviewUrl(site, fileIdOrUrl, page) {
     return viewer === 'pdfjs' ? pdfjsPreviewUrl(s, page) : s;
   }
 
+  // A same-origin path (public/documents/...). openPDF already opens
+  // these in the native viewer; resolving them here too is what lets
+  // a card button enable for a local document instead of reading
+  // "Coming Soon".
+  if (s) {
+    return localPdfUrl(s);
+  }
+
   return null;
 }
 
@@ -224,6 +235,57 @@ function applyTheme(site) {
   if (theme.textLight) root.setProperty('--text-light', theme.textLight);
 }
 
+// --- Property tabs ---
+// sites/index.json is the list of properties in tab order; a static host
+// cannot list the sites/ directory, so the manifest is how a visitor
+// reaches every site. `make test` checks it against the folders on disk.
+//
+// An entry's status is "live" or "preview". The public site shows live tabs
+// only; with ?preview=1 in the URL (which /preview/ redirects to) preview
+// tabs show too, and every tab link keeps the flag so a reviewer stays in
+// preview mode while switching properties.
+const SITE_STATUSES = ['live', 'preview'];
+
+async function renderSiteTabs(site) {
+  const res = await fetch('sites/index.json', { cache: 'no-store' });
+  if (!res.ok) {
+    throw new Error(`sites/index.json could not be loaded (HTTP ${res.status})`);
+  }
+  const manifest = await res.json();
+  const entries = manifest.sites;
+  if (!Array.isArray(entries)) {
+    throw new Error('sites/index.json must contain a "sites" array');
+  }
+  entries.forEach((entry) => {
+    if (!SITE_STATUSES.includes(entry.status)) {
+      throw new Error(`sites/index.json: "${entry.slug}" has unknown status "${entry.status}"`);
+    }
+  });
+
+  const previewMode = new URLSearchParams(location.search).get('preview') === '1';
+  const visible = entries.filter((entry) => previewMode || entry.status === 'live');
+
+  const list = document.getElementById('siteTabs');
+  const nav = list?.closest('nav');
+  if (!list || !nav || visible.length < 2) return;
+
+  list.replaceChildren(
+    ...visible.map((entry) => {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.className = 'c-site-tabs__tab';
+      const params = new URLSearchParams({ site: entry.slug });
+      if (previewMode) params.set('preview', '1');
+      link.href = `?${params}`;
+      link.textContent = entry.label;
+      if (entry.slug === site.slug) link.setAttribute('aria-current', 'page');
+      item.appendChild(link);
+      return item;
+    })
+  );
+  nav.hidden = false;
+}
+
 // --- Update page content ---
 function updatePageContent(site) {
   // Update brand
@@ -238,6 +300,15 @@ function updatePageContent(site) {
     if (tagline) tagline.textContent = site.brand.tagline;
   }
 
+  // Asking price, only for a site that states one
+  if (site.brand?.price) {
+    const priceEl = document.getElementById('heroPrice');
+    if (priceEl) {
+      priceEl.textContent = site.brand.price;
+      priceEl.hidden = false;
+    }
+  }
+
   // Update hero bullets
   if (site.heroBullets?.length) {
     const bulletsContainer = document.querySelector('.hero-bullets');
@@ -246,6 +317,29 @@ function updatePageContent(site) {
         .map((bullet) => `<div class="hero-bullet">${bullet}</div>`)
         .join('');
     }
+  }
+
+  // Update the plans section heading. The markup carries the
+  // lancaster-12 wording as its default; a site whose lot count or
+  // plan count differs supplies its own here.
+  if (site.sections?.plans) {
+    const heading = site.sections.plans;
+    const titleEl = document.getElementById('sectionTitle');
+    if (titleEl && heading.title) titleEl.textContent = heading.title;
+    const subtitleEl = document.getElementById('sectionSubtitle');
+    if (subtitleEl && Array.isArray(heading.subtitle)) {
+      subtitleEl.replaceChildren();
+      heading.subtitle.forEach((line, index) => {
+        if (index > 0) subtitleEl.appendChild(document.createElement('br'));
+        subtitleEl.appendChild(document.createTextNode(line));
+      });
+    }
+  }
+
+  // Update the footer project line
+  if (site.brand?.projectLine) {
+    const projectEl = document.getElementById('footerProject');
+    if (projectEl) projectEl.textContent = site.brand.projectLine;
   }
 
   // Update contact info
@@ -936,10 +1030,11 @@ function renderPlans(site) {
     container.appendChild(card);
   });
 
-  // Add the two documentation cards as plan cards
-  const docs = (site.projectDocs || []).filter(
-    (doc) => doc.id === 'entitlement-report' || doc.id === 'tract-grading'
-  );
+  // Add the project documents as cards. The presentation has its own
+  // card above the grid; everything else in projectDocs renders here,
+  // so a site's document set is whatever its data.json lists rather
+  // than a fixed pair of ids.
+  const docs = (site.projectDocs || []).filter((doc) => doc.id !== 'presentation');
 
   docs.forEach((doc) => {
     const card = document.createElement('div');
@@ -1153,6 +1248,7 @@ async function initApp() {
 
     // Update page content
     updatePageContent(site);
+    await renderSiteTabs(site);
 
     // Render sections
     renderLots(site);
