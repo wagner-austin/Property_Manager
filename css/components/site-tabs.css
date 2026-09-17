@@ -1,11 +1,12 @@
 /* Property tabs component */
-/* Sits in the hero's left column, under the owner card. One tab per entry
-   in sites/index.json; the current property is aria-current. */
+/* Tabs joined to the bottom edge of the owner card above them, like the tabs
+   on a folder. One tab per entry in sites/index.json; the current property is
+   aria-current and reads as the selected tab. */
 
 .c-site-tabs__list {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
+  gap: 2px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -14,9 +15,12 @@
 .c-site-tabs__tab {
   display: block;
   padding: var(--space-2) var(--space-4);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: var(--radius-full);
-  color: rgba(255, 255, 255, 0.9);
+  /* Square at the bottom so the tab meets the edge above it */
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-top: none;
+  color: rgba(255, 255, 255, 0.82);
   font-size: var(--text-sm);
   font-weight: var(--font-semibold);
   text-decoration: none;
@@ -25,8 +29,7 @@
 
 .c-site-tabs__tab:hover,
 .c-site-tabs__tab:focus-visible {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.24);
   color: #ffffff;
 }
 
