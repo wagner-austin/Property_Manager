@@ -188,14 +188,21 @@ header[data-bg='hero'] .hero-with-owner {
   margin: 0 auto;
 }
 
-/* Left column of the hero: owner card above, property tabs joined to its
-   bottom edge. No gap, so the tabs hang off the card like folder tabs. */
+/* Left column of the hero: the owner card */
 header[data-bg='hero'] .hero-side {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0;
   flex-shrink: 0;
+}
+
+/* With a tab strip showing, the header's bottom padding would leave the tabs
+   floating above its edge. The strip's own top margin provides the spacing,
+   so the padding goes and the tabs meet the section below. A property page
+   with no second tab keeps the padding. */
+header[data-bg='hero']:has(.c-site-tabs:not([hidden])) {
+  padding-block-end: 0;
 }
 
 header[data-bg='hero'] .owner-profile {
