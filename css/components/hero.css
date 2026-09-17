@@ -188,6 +188,15 @@ header[data-bg='hero'] .hero-with-owner {
   margin: 0 auto;
 }
 
+/* Left column of the hero: owner card above, property tabs below */
+header[data-bg='hero'] .hero-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+  flex-shrink: 0;
+}
+
 header[data-bg='hero'] .owner-profile {
   flex-shrink: 0;
 }
