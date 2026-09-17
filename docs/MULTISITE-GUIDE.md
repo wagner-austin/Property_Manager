@@ -140,8 +140,8 @@ in either direction, if a status is unknown, or if no site is live.
 - `"status": "preview"` hides the tab on the public site and shows it only in
   preview mode, which is `?preview=1` in the URL. Tab links keep the flag.
 - `https://propertieshb.com/preview/` is the link to send for review. It
-  redirects into preview mode on the property named in `preview/index.html`;
-  change that slug when a different property is under review.
+  redirects into preview mode without naming a property, so it opens the
+  default site (lancaster-12) and the reviewer switches with the tabs.
 - To publish, change the entry's status to `"live"` and push.
 
 A site may also set `brand.price` (for example `"Offered at $375,000"`), shown
