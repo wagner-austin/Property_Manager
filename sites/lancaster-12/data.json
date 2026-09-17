@@ -1,8 +1,12 @@
 {
   "siteName": "Lancaster 12",
   "brand": {
+    "title": "Lancaster 12 Lots",
+    "tagline": "Premium Development Properties - Ready for Your Vision",
+    "projectLine": "Lancaster 12 Lot Development",
     "projectLogo": "public/brand/logos/Desert-crest-homes-logo.png"
   },
+  "heroBullets": ["Fully Graded", "Entitlements Complete", "Development Ready"],
   "sections": {
     "plans": {
       "title": "INVESTMENT OPPORTUNITY - PHASE II",
