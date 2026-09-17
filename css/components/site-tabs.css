@@ -18,15 +18,15 @@
 
 .c-site-tabs__tab {
   display: block;
-  padding: var(--space-3) var(--space-6);
+  padding: var(--space-4) var(--space-8);
   /* Square at the bottom so the tab meets the edge of the header */
   border-radius: var(--radius-md) var(--radius-md) 0 0;
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-bottom: none;
   color: rgba(255, 255, 255, 0.82);
-  font-size: var(--text-base);
-  font-weight: var(--font-semibold);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
   text-decoration: none;
   white-space: nowrap;
 }
