@@ -145,7 +145,9 @@ in either direction, if a status is unknown, or if no site is live.
 - To publish, change the entry's status to `"live"` and push.
 
 A site may also set `brand.price` (for example `"Offered at $375,000"`), shown
-in the header under the tagline. Leave it out and no price appears.
+in the header under the tagline, and `brand.projectLogo`, the builder or
+project logo shown beside the company logo (Lancaster 12 uses the Desert Crest
+Homes logo). Leave either out and it does not appear.
 
 ## 🔗 URL Examples
 
