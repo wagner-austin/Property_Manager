@@ -300,6 +300,17 @@ function updatePageContent(site) {
     if (tagline) tagline.textContent = site.brand.tagline;
   }
 
+  // Builder or project logo, only for a site that names one. Desert Crest
+  // builds the Lancaster 12 plans; a property it is not building shows no
+  // builder logo.
+  if (site.brand?.projectLogo) {
+    const logoEl = document.getElementById('projectLogo');
+    if (logoEl) {
+      logoEl.src = site.brand.projectLogo;
+      logoEl.hidden = false;
+    }
+  }
+
   // Asking price, only for a site that states one
   if (site.brand?.price) {
     const priceEl = document.getElementById('heroPrice');
