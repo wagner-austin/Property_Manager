@@ -34,13 +34,6 @@
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
-    <!-- Property tabs, filled from sites/index.json -->
-    <nav class="c-site-tabs" aria-label="Properties" hidden>
-      <div class="container">
-        <ul id="siteTabs" class="c-site-tabs__list"></ul>
-      </div>
-    </nav>
-
     <!-- Header -->
     <header data-bg="hero" class="c-hero c-hero--brand c-hero--left" aria-labelledby="hero-title">
       <div class="container">
@@ -57,11 +50,20 @@
           />
         </div>
         <div class="hero-with-owner">
-          <div class="owner-profile" id="owner" hidden>
-            <figure class="owner-figure">
-              <img id="ownerPhoto" class="owner-photo" alt="Owner Photo" />
-              <figcaption id="ownerCaption" class="owner-caption"></figcaption>
-            </figure>
+          <!-- Left column: the owner card, then the property tabs beneath it.
+               The tabs sit outside #owner so they still show for a property
+               that has no owner photo. -->
+          <div class="hero-side">
+            <div class="owner-profile" id="owner" hidden>
+              <figure class="owner-figure">
+                <img id="ownerPhoto" class="owner-photo" alt="Owner Photo" />
+                <figcaption id="ownerCaption" class="owner-caption"></figcaption>
+              </figure>
+            </div>
+            <!-- Property tabs, filled from sites/index.json -->
+            <nav class="c-site-tabs" aria-label="Properties" hidden>
+              <ul id="siteTabs" class="c-site-tabs__list"></ul>
+            </nav>
           </div>
           <div class="hero-content c-hero__content">
             <h1 id="hero-title" class="c-hero__title">Lancaster 12 Lots</h1>
